@@ -9,45 +9,72 @@
                         <div class="mx-auto app-login-box col-sm-12 col-md-10 col-lg-9">
                             <div class="app-logo"></div>
                             <h4>
-                                <div>Welcome,</div>
-                                <span>It only takes a <span class="text-success">few seconds</span> to create your account</span>
+                                <div>Seja bem vindo</div>
+                                <span>Leva apenas <span class="text-success">alguns segundos</span> para criar sua conta</span>
                             </h4>
                             <div>
-                                <form class="">
-                                    <div class="form-row">
+                                <form action="{{route('register')}}" id="form_login" method="post">
+                                    @csrf
+                                    <div class="row justify-content-center">
                                         <div class="col-md-6">
                                             <div class="position-relative form-group">
-                                                <label for="exampleEmail" class=""><span class="text-danger">*</span> Email</label>
-                                                <input name="email" id="exampleEmail" placeholder="Email here..." type="email" class="form-control">
+                                                <label for="email"><span class="text-danger">*</span> Email</label>
+                                                <input name="email" placeholder="Digite seu Email" value="{{old('email')}}" type="email" class="form-control @error('email') is-invalid @enderror">
+                                                @error('email')
+                                                    <div class="invalid-feedback">
+                                                        {{$message}}
+                                                    </div>
+                                                @enderror
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="position-relative form-group">
-                                                <label for="exampleName" class="">Name</label>
-                                                <input name="text" id="exampleName" placeholder="Name here..." type="text" class="form-control">
+                                                <label for="name"><span class="text-danger">*</span> Nome Completo</label>
+                                                <input name="name" placeholder="Digite seu Nome completo" value="{{old('name')}}" type="text" class="form-control @error('name') is-invalid @enderror">
+                                                @error('name')
+                                                    <div class="invalid-feedback">
+                                                        {{$message}}
+                                                    </div>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="position-relative form-group">
+                                                <label for="cpf_cnpj"><span class="text-danger">*</span> CPF/CNPJ</label>
+                                                <input name="cpf_cnpj" placeholder="Informe seu CPF ou CNPJ" value="{{old('cpf_cnpj')}}" type="text" class="form-control @error('cpf_cnpj') is-invalid @enderror">
+                                                @error('cpf_cnpj')
+                                                    <div class="invalid-feedback">
+                                                        {{$message}}
+                                                    </div>
+                                                @enderror
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="position-relative form-group">
-                                                <label for="examplePassword" class=""><span class="text-danger">*</span> Password</label>
-                                                <input name="password" id="examplePassword" placeholder="Password here..." type="password" class="form-control">
+                                                <label for="password"><span class="text-danger">*</span> Senha</label>
+                                                <input name="password" placeholder="Digite uma senha" type="password" class="form-control @error('password') is-invalid @enderror">
+                                                @error('password')
+                                                    <div class="invalid-feedback">
+                                                        {{$message}}
+                                                    </div>
+                                                @enderror
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="position-relative form-group">
-                                                <label for="examplePasswordRep" class=""><span class="text-danger">*</span> Repeat Password</label>
-                                                <input name="passwordrep" id="examplePasswordRep" placeholder="Repeat Password here..." type="password" class="form-control">
+                                                <label for="password_confirmation"><span class="text-danger">*</span> Repetir Senha</label>
+                                                <input name="password_confirmation" placeholder="Repete sua senha" type="password" class="form-control">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="mt-3 position-relative form-check">
-                                        <input name="check" id="exampleCheck" type="checkbox" class="form-check-input">
-                                        <label for="exampleCheck" class="form-check-label">Accept our <a href="javascript:void(0);">Terms and Conditions</a>.</label>
+                                        <input name="check" id="terms" type="checkbox" class="form-check-input">
+                                        <label for="terms" class="form-check-label">Aceitar os <a href="javascript:void(0);">Termos e Condições</a>.</label>
                                     </div>
                                     <div class="mt-4 d-flex align-items-center">
-                                        <h5 class="mb-0">Already have an account? <a href="javascript:void(0);" class="text-primary">Sign in</a></h5>
+                                        <h5 class="mb-0">Já possui registro? <a href="javascript:void(0);" class="text-primary">Clique Aqui</a></h5>
                                         <div class="ml-auto">
-                                            <button class="btn-wide btn-pill btn-shadow btn-hover-shine btn btn-primary btn-lg">Create Account </button>
+                                            <button class="btn-wide btn-pill btn-shadow btn-hover-shine btn btn-primary btn-lg">Criar Conta</button>
                                         </div>
                                     </div>
                                 </form>
@@ -61,9 +88,9 @@
                                     <div class="position-relative h-100 d-flex justify-content-center align-items-center bg-premium-dark" tabindex="-1">
                                         <div class="slide-img-bg" style="background-image: url('assets/images/originals/citynights.jpg');"></div>
                                         <div class="slider-content">
-                                            <h3>Scalable, Modular, Consistent</h3>
-                                            <p>Easily exclude the components you don't require. Lightweight, consistent
-                                                Bootstrap based styles across all elements and components
+                                            <h3>Lorem ipsum dolor sit amet</h3>
+                                            <p>
+                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eget ligula eu lectus lobortis condimentum. Aliquam nonummy auctor massa. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla at risus. Quisque purus magna, auctor et, sagittis ac, posuere eu, lectus. Nam mattis, felis ut adipiscing.
                                             </p>
                                         </div>
                                     </div>

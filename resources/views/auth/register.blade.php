@@ -72,7 +72,7 @@
                                         <label for="terms" class="form-check-label">Aceitar os <a href="javascript:void(0);">Termos e Condições</a>.</label>
                                     </div>
                                     <div class="mt-4 d-flex align-items-center">
-                                        <h5 class="mb-0">Já possui registro? <a href="javascript:void(0);" class="text-primary">Clique Aqui</a></h5>
+                                        <h5 class="mb-0">Já possui registro? <a href="{{route('login')}}" class="text-primary">Clique Aqui</a></h5>
                                         <div class="ml-auto">
                                             <button class="btn-wide btn-pill btn-shadow btn-hover-shine btn btn-primary btn-lg">Criar Conta</button>
                                         </div>

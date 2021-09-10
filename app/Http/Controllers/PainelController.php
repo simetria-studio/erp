@@ -8,6 +8,7 @@ class PainelController extends Controller
 {
     public function dashboard()
     {
+        // auth()->guard('user')->logout();
         return view('dashboard');
     }
 }

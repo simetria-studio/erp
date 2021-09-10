@@ -1,7 +1,7 @@
 @extends('layouts.auth')
 
 @section('content')
-    <div class="app-container app-theme-white body-tabs-shadow">
+    {{-- <div class="app-container app-theme-white body-tabs-shadow">
         <div class="app-container">
             <div class="h-100">
                 <div class="h-100 no-gutters row">
@@ -72,53 +72,75 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
+
+    <!-- Sign in Start -->
+    <section class="sign-in-page">
+        <div class="container bg-white p-0">
+            <div class="row no-gutters">
+                <div class="col-sm-6 align-self-center">
+                    <div class="sign-in-from">
+                        <h1 class="mb-0">Bem vindo de volta.</h1>
+                        <p>Faça login para acessar sua conta.</p>
+                        <form action="{{route('login')}}" method="post" class="mt-4">
+                            @csrf
+                            <div class="form-group">
+                                <label for="email" class="">Email</label>
+                                <input name="email" placeholder="Email de Login" type="email" class="form-control mb-0 @error('email') is-invalid @enderror">
+
+                                @error('email')
+                                    <div class="invalid-feedback">
+                                        {{$message}}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label for="password" class="">Password</label>
+                                <a href="{{route('password.request')}}" class="float-right">Esqueceu a senha?</a>
+                                <input name="password" placeholder="Sua senha" type="password" class="form-control mb-0">
+                            </div>
+                            <div class="d-inline-block w-100">
+                                <div class="custom-control custom-checkbox d-inline-block mt-2 pt-1">
+                                    <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                    <label class="custom-control-label" for="customCheck1">Lembrar-me</label>
+                                </div>
+                                <button type="submit" class="btn btn-primary float-right">Efetuar Login</button>
+                            </div>
+                            <div class="sign-info">
+                                <span class="dark-color d-inline-block line-height-2">Ainda não possui uma conta? <a href="{{route('register')}}">Clique Aqui</a></span>
+                                <ul class="iq-social-media">
+                                    <li><a href="#"><i class="ri-facebook-box-line"></i></a></li>
+                                    <li><a href="#"><i class="ri-twitter-line"></i></a></li>
+                                    <li><a href="#"><i class="ri-instagram-line"></i></a></li>
+                                </ul>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-sm-6 text-center">
+                    <div class="sign-in-detail text-white">
+                        <a class="sign-in-logo mb-5" href="#"><img src="{{asset('theme/dark-html/images/logo-white.png')}}" class="img-fluid" alt="logo"></a>
+                        <div class="owl-carousel" data-autoplay="true" data-loop="true" data-nav="false" data-dots="true" data-items="1" data-items-laptop="1" data-items-tab="1" data-items-mobile="1" data-items-mobile-sm="1" data-margin="0">
+                            <div class="item">
+                                <img src="{{asset('theme/dark-html/images/login/1.png')}}" class="img-fluid mb-4" alt="logo">
+                                <h4 class="mb-1 text-white">Lorem ipsum dolor sit amet</h4>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eget ligula eu lectus lobortis condimentum.</p>
+                            </div>
+                            <div class="item">
+                                <img src="{{asset('theme/dark-html/images/login/1.png')}}" class="img-fluid mb-4" alt="logo">
+                                <h4 class="mb-1 text-white">Lorem ipsum dolor sit amet</h4>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eget ligula eu lectus lobortis condimentum.</p>
+                            </div>
+                            <div class="item">
+                                <img src="{{asset('theme/dark-html/images/login/1.png')}}" class="img-fluid mb-4" alt="logo">
+                                <h4 class="mb-1 text-white">Lorem ipsum dolor sit amet</h4>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eget ligula eu lectus lobortis condimentum.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Sign in END -->
 @endsection
-{{-- <x-guest-layout>
-    <x-jet-authentication-card>
-        <x-slot name="logo">
-            <x-jet-authentication-card-logo />
-        </x-slot>
-
-        <x-jet-validation-errors class="mb-4" />
-
-        @if (session('status'))
-            <div class="mb-4 font-medium text-sm text-green-600">
-                {{ session('status') }}
-            </div>
-        @endif
-
-        <form method="POST" action="{{ route('login') }}">
-            @csrf
-
-            <div>
-                <x-jet-label for="email" value="{{ __('Email') }}" />
-                <x-jet-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
-            </div>
-
-            <div class="mt-4">
-                <x-jet-label for="password" value="{{ __('Password') }}" />
-                <x-jet-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="current-password" />
-            </div>
-
-            <div class="block mt-4">
-                <label for="remember_me" class="flex items-center">
-                    <x-jet-checkbox id="remember_me" name="remember" />
-                    <span class="ml-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-                </label>
-            </div>
-
-            <div class="flex items-center justify-end mt-4">
-                @if (Route::has('password.request'))
-                    <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('password.request') }}">
-                        {{ __('Forgot your password?') }}
-                    </a>
-                @endif
-
-                <x-jet-button class="ml-4">
-                    {{ __('Log in') }}
-                </x-jet-button>
-            </div>
-        </form>
-    </x-jet-authentication-card>
-</x-guest-layout> --}}

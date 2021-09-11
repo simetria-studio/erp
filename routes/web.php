@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\PainelController;
+use App\Http\Controllers\Company\CompanyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,4 +18,16 @@ use App\Http\Controllers\PainelController;
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/', [PainelController::class, 'dashboard'])->name('dashboard');
+
+    Route::prefix('profile')->group(function () {
+        Route::get('/my-profile', [PainelController::class, 'myProfile'])->name('profile.my');
+        Route::get('/edit-profile', [PainelController::class, 'editProfile'])->name('profile.edit');
+    });
+
+    Route::prefix('settings')->group(function () {
+        Route::prefix('companies')->group(function () {
+            Route::get('registration', [CompanyController::class, 'viewCompany'])->name('setting.company.registration');
+            Route::post('registration', [CompanyController::class, 'storeCompany'])->name('setting.company.registration');
+        });
+    });
 });

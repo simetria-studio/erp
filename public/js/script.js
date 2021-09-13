@@ -183,8 +183,8 @@ $(document).ready(function(){
     $(document).on('click', '[data-toggle="modal"]', function() {
         $('.modal-content').find('.overlay').remove();
     });
-    // Função salva dados gerais
-    $(document).on('click', '.btn-salvar', function(){
+    // Função salva dados gerais modal
+    $(document).on('click', '.btn-modal-salvar', function(){
         // Pegamos os dados do data
         let save_target = $(this).data('save_target');
         let save_route = $(this).data('save_route');

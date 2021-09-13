@@ -59,39 +59,5 @@
         <script src="{{asset('theme/dark-html/js/chart-custom.js')}}"></script>
         <!-- Custom JavaScript -->
         <script src="{{asset('theme/dark-html/js/custom.js')}}"></script>
-        
-        <script>
-            $(document).ready(function(){
-                var options = {
-                    onKeyPress: function (cpf, ev, el, op) {
-                        var masks = ['000.000.000-000', '00.000.000/0000-00'];
-                        $('[name="cpf_cnpj"]').mask((cpf.length > 14) ? masks[1] : masks[0], op);
-                    }
-                }
-                $('[name="cpf_cnpj"]').length > 11 ? $('[name="cpf_cnpj"]').mask('00.000.000/0000-00', options) : $('[name="cpf_cnpj"]').mask('000.000.000-00#', options);
-
-                // Aciona a validação ao sair do input
-                $('[name="cpf_cnpj"]').blur(function(){
-                    var thiss = $(this);
-                
-                    // O CPF ou CNPJ
-                    var cpf_cnpj = $(this).val();
-
-                    if(cpf_cnpj){
-                        // Testa a validação
-                        if ( valida_cpf_cnpj( cpf_cnpj ) ) {
-                
-                        } else {
-                            Swal.fire({
-                                icon: 'error',
-                                text: 'CPF/CNPJ informado invalido!',
-                            }).then((result)=>{
-                                // thiss.focus();
-                            });
-                        }
-                    }
-                });
-            });
-        </script>
     </body>
 </html>

@@ -30,15 +30,6 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="cpf_cnpj"><span class="text-danger">*</span> CPF/CNPJ</label>
-                                <input name="cpf_cnpj" placeholder="Digite seu CPF/CNPJ" value="{{old('cpf_cnpj')}}" type="text" class="form-control mb-0 @error('cpf_cnpj') is-invalid @enderror">
-                                @error('cpf_cnpj')
-                                    <div class="invalid-feedback">
-                                        {{$message}}
-                                    </div>
-                                @enderror
-                            </div>
-                            <div class="form-group">
                                 <label for="password"><span class="text-danger">*</span> Senha</label>
                                 <input name="password" placeholder="Digite sua Senha" value="{{old('email')}}" type="password" class="form-control mb-0 @error('password') is-invalid @enderror">
                                 @error('password')

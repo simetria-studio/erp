@@ -32,7 +32,7 @@ class User extends Authenticatable
         'permission',
         'company_id',
         'sex',
-        'cnpj_cpf',
+        'document_number',
         'rg',
         'phone1',
         'phone2',

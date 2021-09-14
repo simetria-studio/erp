@@ -27,7 +27,7 @@ class CreateCompaniesTable extends Migration
             $table->string('state', 50)->nullable(); // estado
             $table->string('country', 50)->nullable(); // pais
             $table->string('kind_of_person', 11); // tipo de pessoa
-            $table->string('cnpj_cpf', 20);
+            $table->string('document_number', 50);
             $table->string('state_registration', 50)->nullable(); // registro estadual
             $table->string('municipal_registration', 50)->nullable(); // registro municipal
             $table->string('phone1', 20); // telefone

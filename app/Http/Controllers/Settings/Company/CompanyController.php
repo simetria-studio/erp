@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Company;
+namespace App\Http\Controllers\Settings\Company;
 
 use App\Models\Company;
 
@@ -27,7 +27,7 @@ class CompanyController extends Controller
         $company['state'] = $request->state;
         $company['country'] = $request->country;
         $company['kind_of_person'] = $request->kind_of_person;
-        $company['cnpj_cpf'] = $request->cnpj_cpf;
+        $company['document_number'] = $request->cnpj_cpf;
         $company['state_registration'] = $request->state_registration;
         $company['municipal_registration'] = $request->municipal_registration;
         $company['phone1'] = $request->phone1;

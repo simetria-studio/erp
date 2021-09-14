@@ -22,7 +22,7 @@ class Company extends Model
         'state',
         'country',
         'kind_of_person',
-        'cnpj_cpf',
+        'document_number',
         'state_registration',
         'municipal_registration',
         'phone1',

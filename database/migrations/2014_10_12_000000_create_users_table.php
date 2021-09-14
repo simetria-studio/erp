@@ -19,10 +19,10 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('permission')->default(0); // 10:AdminSys - 5:Admin - 1:Padrao - 0:SemAcesso
+            $table->string('permission')->default(5); // 10:AdminSys - 5:Admin - 1:Padrao - 0:SemAcesso
             $table->string('company_id')->nullable();
             $table->string('sex', 10)->nullable();
-            $table->string('cnpj_cpf', 24)->nullable();
+            $table->string('document_number', 50)->nullable();
             $table->string('rg', 50)->nullable();
             $table->string('phone1', 20)->nullable();
             $table->string('phone2', 20)->nullable();

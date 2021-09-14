@@ -58,8 +58,8 @@
                                                     </select>
                                                 </div>
                                                 <div class="col-md-6 form-group">
-                                                    <label for="cnpj_cpf" class="control-label">Numero do Documento</label>
-                                                    <input type="text" class="form-control" required="required" name="cnpj_cpf" placeholder="Numero do Documento">
+                                                    <label for="document_number" class="control-label">Numero do Documento</label>
+                                                    <input type="text" class="form-control" required="required" name="document_number" placeholder="Numero do Documento">
                                                 </div>
                                                 <div class="col-md-6 form-group">
                                                     <label for="state_registration" class="control-label">Registro Estadual</label>

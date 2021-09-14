@@ -3,7 +3,8 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\PainelController;
-use App\Http\Controllers\Company\CompanyController;
+use App\Http\Controllers\Settings\Company\CompanyController;
+use App\Http\Controllers\Settings\Admin\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +26,13 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     });
 
     Route::prefix('settings')->group(function () {
+        Route::prefix('admin')->group(function () {
+            // Menus
+            Route::get('menu/registration', [AdminController::class, 'viewMenu'])->name('setting.admin.menu');
+            Route::post('menu/registration', [AdminController::class, 'storeMenu'])->name('setting.admin.menu');
+            Route::delete('menu/registration', [AdminController::class, 'destroyMenu'])->name('setting.admin.menu');
+        });
+
         Route::prefix('companies')->group(function () {
             Route::get('registration', [CompanyController::class, 'viewCompany'])->name('setting.company.registration');
             Route::post('registration', [CompanyController::class, 'storeCompany'])->name('setting.company.registration');

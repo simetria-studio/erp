@@ -5,12 +5,13 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <title>Sistema - ERP</title>
 
         <!-- Favicon -->
         <link rel="shortcut icon" href="{{asset('theme/dark-html/images/favicon.ico')}}" />
 
-        <<link href="{{asset('plugin/bootstrap-4.6.0/css/bootstrap.min.css')}}" rel="stylesheet">
+        <link href="{{asset('plugin/bootstrap-4.6.0/css/bootstrap.min.css')}}" rel="stylesheet">
         <link href="{{asset('plugin/sweetalert2/sweetalert2.min.css')}}" rel="stylesheet">
 
         <!-- Typography CSS -->
@@ -258,8 +259,14 @@
                                         <li class="{{Request::is('settings/*') ? 'active' : ''}}">
                                             <a href="#settings" class="iq-waves-effect collapsed" data-toggle="collapse" aria-expanded="false"><i class="ri-settings-line"></i><span>Configurações</span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
                                             <ul id="settings" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle">
+                                                <li class="{{Request::is('settings/admin/*') ? 'active' : ''}}">
+                                                    <a href="#admin" class="iq-waves-effect collapsed"  data-toggle="collapse" aria-expanded="false"><span>Adm. Sistema</span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
+                                                    <ul id="admin" class="iq-submenu iq-submenu-data collapse" data-parent="#settings">
+                                                        <li class="{{Request::is('settings/admin/menu/registration') ? 'active' : ''}}"><a href="{{route('setting.admin.menu')}}">Menus</a></li>
+                                                    </ul>
+                                                </li>
                                                 <li class="{{Request::is('settings/companies/*') ? 'active' : ''}}">
-                                                <a href="#companies" class="iq-waves-effect collapsed"  data-toggle="collapse" aria-expanded="false"><span>Empresas</span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
+                                                    <a href="#companies" class="iq-waves-effect collapsed"  data-toggle="collapse" aria-expanded="false"><span>Empresas</span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
                                                     <ul id="companies" class="iq-submenu iq-submenu-data collapse" data-parent="#settings">
                                                         <li class="{{Request::is('settings/companies/registration') ? 'active' : ''}}"><a href="{{route('setting.company.registration')}}">Cadastrar</a></li>
                                                     </ul>
@@ -308,6 +315,7 @@
         <script src="{{asset('plugin/sweetalert2/sweetalert2.all.min.js')}}"></script>
         <script src="{{asset('plugin/mask.jquery.js')}}"></script>
         <script src="{{asset('plugin/valida_cpf_cnpj.js')}}"></script>
+        <script src="{{asset('js/script.min.js')}}"></script>
 
         <!-- Appear JavaScript -->
         <script src="{{asset('theme/dark-html/js/jquery.appear.js')}}"></script>

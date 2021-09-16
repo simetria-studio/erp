@@ -19,7 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('permission')->default(5); // 10:AdminSys - 5:Admin - 1:Padrao - 0:SemAcesso
+            $table->integer('permission')->default(5); // 10:AdminSys - 5:Admin - 1:Padrao - 0:SemAcesso
             $table->string('company_id')->nullable();
             $table->string('sex', 10)->nullable();
             $table->string('document_number', 50)->nullable();

@@ -17,6 +17,7 @@ class CreateMainAccessesTable extends Migration
             $table->id();
             $table->string('menu_name');
             $table->string('menu_route');
+            $table->string('icon');
             $table->timestamps();
         });
     }

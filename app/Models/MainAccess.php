@@ -12,5 +12,6 @@ class MainAccess extends Model
     protected $fillable = [
         'menu_name',
         'menu_route',
+        'icon',
     ];
 }

@@ -247,32 +247,23 @@
                                                 <li class="{{Request::is('/') ? 'active' : ''}}"><a href="{{route('dashboard')}}">Dashboard</a></li>
                                             </ul>
                                         </li>
-                                        {{-- <li class="active">
-                                            <a href="#menu-design" class="iq-waves-effect collapsed" data-toggle="collapse" aria-expanded="true"><i class="ri-menu-3-line"></i><span>Menu Design</span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
-                                            <ul id="menu-design" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle">
-                                                <li><a href="horizontal-menu.html"><i class="ri-git-commit-line"></i>Horizontal menu</a></li>
-                                                <li class="active"><a href="horizontal-top-menu.html"><i class="ri-text-spacing"></i>Horizontal Top Menu</a></li>
-                                                <li><a href="two-sidebar.html"><i class="ri-indent-decrease"></i>Two Sidebar</a></li>
-                                                <li><a href="vertical-top-menu.html"><i class="ri-line-height"></i>Vertical block menu</a></li>
-                                            </ul>
-                                        </li> --}}
-                                        <li class="{{Request::is('settings/*') ? 'active' : ''}}">
-                                            <a href="#settings" class="iq-waves-effect collapsed" data-toggle="collapse" aria-expanded="false"><i class="ri-settings-line"></i><span>Configurações</span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
-                                            <ul id="settings" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle">
-                                                <li class="{{Request::is('settings/admin/*') ? 'active' : ''}}">
-                                                    <a href="#admin" class="iq-waves-effect collapsed"  data-toggle="collapse" aria-expanded="false"><span>Adm. Sistema</span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
-                                                    <ul id="admin" class="iq-submenu iq-submenu-data collapse" data-parent="#settings">
-                                                        <li class="{{Request::is('settings/admin/menu/registration') ? 'active' : ''}}"><a href="{{route('setting.admin.menu')}}">Menus</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li class="{{Request::is('settings/companies/*') ? 'active' : ''}}">
-                                                    <a href="#companies" class="iq-waves-effect collapsed"  data-toggle="collapse" aria-expanded="false"><span>Empresas</span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
-                                                    <ul id="companies" class="iq-submenu iq-submenu-data collapse" data-parent="#settings">
-                                                        <li class="{{Request::is('settings/companies/registration') ? 'active' : ''}}"><a href="{{route('setting.company.registration')}}">Cadastrar</a></li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </li>
+                                        @foreach (menuOptions() as $main_access)
+                                            <li class="{{Request::is($main_access->menu_route.'/*') ? 'active' : ''}}">
+                                                <a href="#{{$main_access->menu_route}}" class="iq-waves-effect collapsed" data-toggle="collapse" aria-expanded="false"><i class="{{$main_access->icon}}"></i><span>{{$main_access->menu_name}}</span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
+                                                <ul id="{{$main_access->menu_route}}" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle">
+                                                    @foreach ($main_access->modules as $modules)
+                                                        <li class="{{Request::is($main_access->menu_route.'/'.$modules->module_route.'/*') ? 'active' : ''}}">
+                                                            <a href="#{{$modules->module_route}}" class="iq-waves-effect collapsed"  data-toggle="collapse" aria-expanded="false"><span>{{$modules->module_name}}</span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
+                                                            <ul id="{{$modules->module_route}}" class="iq-submenu iq-submenu-data collapse" data-parent="#{{$main_access->menu_route}}">
+                                                                @foreach ($modules->programs as $programs)
+                                                                    <li class="{{Request::is($main_access->menu_route.'/'.$modules->module_route.'/'.$programs->program_route) ? 'active' : ''}}"><a href="{{route($programs->route_name)}}">{{$programs->program_name}}</a></li>
+                                                                @endforeach
+                                                            </ul>
+                                                        </li>
+                                                    @endforeach
+                                                </ul>
+                                            </li>
+                                        @endforeach
                                     </ul>
                                 </nav>
                             </div>

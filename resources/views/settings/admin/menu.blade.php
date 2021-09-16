@@ -36,6 +36,7 @@
                                                 <thead>
                                                     <tr>
                                                         <th class="text-light">#</th>
+                                                        <th class="text-light">Icone</th>
                                                         <th class="text-light">Nome do Acesso Principal</th>
                                                         <th class="text-light">Rota do Acesso Principal</th>
                                                         <th class="text-light">Ações</th>
@@ -45,12 +46,13 @@
                                                     @foreach ($main_access as $mainaccess)
                                                         <tr class="tr-id-{{$mainaccess->id}}">
                                                             <td class="text-light">#{{$mainaccess->id}}</td>
+                                                            <td class="text-light"><i class="{{$mainaccess->icon}}"></i></td>
                                                             <td class="text-light">{{$mainaccess->menu_name}}</td>
                                                             <td class="text-light">{{$mainaccess->menu_route}}</td>
                                                             <td class="text-light">
                                                                 <div class="btn-group">
                                                                     <button type="button" class="btn btn-danger btn-apagar" data-tbody=".MenuPrincipal" data-dados="{{json_encode(['id' => $mainaccess->id, 'menu_create' => 'main_access'])}}" data-route="{{route('setting.admin.menu')}}"><i class="ri-delete-bin-5-line"></i></button>
-                                                                    <button type="button" class="btn btn-info btn-editar" data-toggle="modal" data-target="#editarMenuPrincipal" data-dados="{{json_encode($mainaccess)}}"><i class="ri-edit-box-line"></i></button>
+                                                                    <button type="button" class="btn btn-info btn-editar" data-toggle="modal" data-target="#editarAcessoPrincipal" data-dados="{{json_encode($mainaccess)}}"><i class="ri-edit-box-line"></i></button>
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -181,6 +183,10 @@
                                 <label for="menu_route">Rota do Acesso Principal</label>
                                 <input type="text" name="menu_route" class="form-control" placeholder="Rota do Menu Principal">
                             </div>
+                            <div class="form-group col-12">
+                                <label for="icon">Icone do Menu</label>
+                                <input type="text" name="icon" class="form-control" placeholder="Icone do Menu">
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer justify-content-between">
@@ -212,6 +218,10 @@
                             <div class="form-group col-12">
                                 <label for="menu_route">Rota do Menu Principal</label>
                                 <input type="text" name="menu_route" class="form-control" placeholder="Rota do Menu Principal">
+                            </div>
+                            <div class="form-group col-12">
+                                <label for="icon">Icone do Menu</label>
+                                <input type="text" name="icon" class="form-control" placeholder="Icone do Menu">
                             </div>
                         </div>
                     </div>

@@ -25,6 +25,7 @@ class AdminController extends Controller
             case 'main_access':
                 $main_access['menu_name'] = mb_convert_case($request->menu_name, MB_CASE_TITLE);
                 $main_access['menu_route'] = mb_convert_case($request->menu_route, MB_CASE_LOWER);
+                $main_access['icon'] = mb_convert_case($request->icon, MB_CASE_LOWER);
 
                 if($request->id){
                     $mainaccess = MainAccess::find($request->id);
@@ -35,11 +36,12 @@ class AdminController extends Controller
                         'tb_id' => $main_access->id,
                         'tb_up' => '
                             <td class="text-light">#'.$main_access->id.'</td>
+                            <td class="text-light"><i class="'.$main_access->icon.'"></i></td>
                             <td class="text-light">'.$main_access->menu_name.'</td>
                             <td class="text-light">'.$main_access->menu_route.'</td>
                             <td class="text-light">
                                 <div class="btn-group">
-                                    <button type="button" class="btn btn-danger btn-apagar" data-tbody=".AcessoPrincipal" data-dados=\''.json_encode(['id' => $mainaccess->id, 'menu_create' => 'main_access']).'\' data-route="'.route('setting.admin.menu').'"><i class="ri-delete-bin-5-line"></i></button>
+                                    <button type="button" class="btn btn-danger btn-apagar" data-tbody=".AcessoPrincipal" data-dados=\''.json_encode(['id' => $main_access->id, 'menu_create' => 'main_access']).'\' data-route="'.route('setting.admin.menu').'"><i class="ri-delete-bin-5-line"></i></button>
                                     <button type="button" class="btn btn-info btn-editar" data-toggle="modal" data-target="#editarAcessoPrincipal" data-dados=\''.json_encode($main_access).'\'><i class="ri-edit-box-line"></i></button>
                                 </div>
                             </td>'
@@ -50,6 +52,7 @@ class AdminController extends Controller
                     return response()->json([
                         'table' => '<tr class="tr-id-'.$main_access->id.'">
                             <td class="text-light">#'.$main_access->id.'</td>
+                            <td class="text-light"><i class="'.$main_access->icon.'"></i></td>
                             <td class="text-light">'.$main_access->menu_name.'</td>
                             <td class="text-light">'.$main_access->menu_route.'</td>
                             <td class="text-light">
@@ -118,7 +121,7 @@ class AdminController extends Controller
                 $program['controller_name'] = $request->controller_name;
                 $program['method_get'] = mb_convert_case($request->method_get, MB_CASE_LOWER);
                 $program['method_post'] = mb_convert_case($request->method_post, MB_CASE_LOWER);
-                $program['method_delete'] = mb_convert_case($request->method_get, MB_CASE_LOWER);
+                $program['method_delete'] = mb_convert_case($request->method_delete, MB_CASE_LOWER);
 
                 if($request->id){
                     $program_fresh = Program::find($request->id);
@@ -135,7 +138,7 @@ class AdminController extends Controller
                             <td class="text-light">
                                 <span><b>Get:</b> '.($program->method_get == 'true' ? "view_".$program->function_name : "").'</span><br>
                                 <span><b>Post:</b> '.($program->method_post == 'true' ? "store_".$program->function_name : "").'</span><br>
-                                <span><b>Delete:</b> '.($program->method_delte == 'true' ? "destroy_".$program->function_name : "").'</span><br>
+                                <span><b>Delete:</b> '.($program->method_delete == 'true' ? "destroy_".$program->function_name : "").'</span><br>
                             </td>
                             <td class="text-light">'.$program->program_route.'</td>
                             <td class="text-light">'.$program->route_name.'</td>
@@ -143,7 +146,7 @@ class AdminController extends Controller
                             <td class="text-light">
                                 <span><b>Get:</b> '.($program->method_get == 'true' ? "SIM" : "NÃO").'</span><br>
                                 <span><b>Post:</b> '.($program->method_post == 'true' ? "SIM" : "NÃO").'</span><br>
-                                <span><b>Delete:</b> '.($program->method_delte == 'true' ? "SIM" : "NÃO").'</span><br>
+                                <span><b>Delete:</b> '.($program->method_delete == 'true' ? "SIM" : "NÃO").'</span><br>
                             </td>
                             <td class="text-light">
                                 <div class="btn-group">
@@ -164,7 +167,7 @@ class AdminController extends Controller
                             <td class="text-light">
                                 <span><b>Get:</b> '.($program->method_get == 'true' ? "view_".$program->function_name : "").'</span><br>
                                 <span><b>Post:</b> '.($program->method_post == 'true' ? "store_".$program->function_name : "").'</span><br>
-                                <span><b>Delete:</b> '.($program->method_delte == 'true' ? "destroy_".$program->function_name : "").'</span><br>
+                                <span><b>Delete:</b> '.($program->method_delete == 'true' ? "destroy_".$program->function_name : "").'</span><br>
                             </td>
                             <td class="text-light">'.$program->program_route.'</td>
                             <td class="text-light">'.$program->route_name.'</td>
@@ -172,7 +175,7 @@ class AdminController extends Controller
                             <td class="text-light">
                                 <span><b>Get:</b> '.($program->method_get == 'true' ? "SIM" : "NÃO").'</span><br>
                                 <span><b>Post:</b> '.($program->method_post == 'true' ? "SIM" : "NÃO").'</span><br>
-                                <span><b>Delete:</b> '.($program->method_delte == 'true' ? "SIM" : "NÃO").'</span><br>
+                                <span><b>Delete:</b> '.($program->method_delete == 'true' ? "SIM" : "NÃO").'</span><br>
                             </td>
                             <td class="text-light">
                                 <div class="btn-group">

@@ -31,7 +31,13 @@ $(document).ready(function(){
         let save_target = $(this).data('save_target');
         let save_route = $(this).data('save_route');
         let update_table = $(this).data('update_table');
-        let table_trash = $(this).data('trash');
+        let table_tbody = $(this).data('tbody');
+
+        var form_data = new FormData($(save_target)[0]);
+        var checkbox = $(save_target).find("input[type=checkbox]");
+        $.each(checkbox, function(key, val) {
+            form_data.append($(val).attr('name'), $(this).is(':checked'))
+        });
 
         // Por mais que tenha erro, limpamos para os outros que não tenha
         $(save_target).find('input').removeClass('is-invalid');
@@ -45,7 +51,7 @@ $(document).ready(function(){
         $.ajax({
             url: save_route,
             type: "POST",
-            data: new FormData($(save_target)[0]),
+            data: form_data,
             cache: false,
             contentType: false,
             processData: false,
@@ -58,8 +64,8 @@ $(document).ready(function(){
 
                 $(save_target).find('input[type="text"]').val('');
 
-                if(update_table == 'S') if(data.table) $('table '+(save_target.replace('#','.'))).append(data.table); // Inserindo novos dados
-                if(update_table == 'S') if(data.tb_up) $('table '+(save_target.replace('#','.'))).find('.tr-id-'+data.tb_id).html(data.tb_up); // Editando dados
+                if(update_table == 'S') if(data.table) $('table '+(table_tbody)).append(data.table); // Inserindo novos dados
+                if(update_table == 'S') if(data.tb_up) $('table '+(table_tbody)).find('.tr-id-'+data.tb_id).html(data.tb_up); // Editando dados
 
                 Toast.fire({
                     icon: 'success',
@@ -98,12 +104,55 @@ $(document).ready(function(){
         var dados = $(this).data('dados'); // dados que serão passados aos campos
 
         // Fazemos uma leitura dosa campos
-        var data = '';
         $.each(dados, (key, value) => {
             $(target).find('[name="'+key+'"').val(value); // os campos name são iguais aos das colunas vidna do banco
             $(target).find('.'+key).val(value); // quando o campo name por motivos especiais for diferente, pega por class tambem
 
             $(target).find('._'+key).text(value); // qunado campo for texto
+        });
+        
+        $(target).find("input[type=checkbox]").each(function() {
+            if($(this).val() == 'true'){
+                $(this).prop('checked', true);
+            }else{
+                $(this).prop('checked', false);
+            }
+        });
+        // $(target).find('select').trigger('change');
+    });
+
+    // Apagar
+    $(document).on('click', '.btn-apagar', function(e) {
+        var dados = $(this).data('dados');
+        var route = $(this).data('route');
+        var table_tbody = $(this).data('tbody');
+
+        Swal.fire({
+            icon: 'info',
+            title: 'Apagar Item',
+            text: 'Tem certeza que gostatia de apagar esse item?',
+            showCancelButton: true,
+            confirmButtonText: 'SIM',
+            cancelButtonText: 'NÃO',
+            showLoaderOnConfirm: true,
+            preConfirm: (destroy) => {
+                return $.ajax({
+                            url: route,
+                            type: 'DELETE',
+                            data: dados
+                        }).then((response) => {
+                            console.log(response);
+                            $('table '+table_tbody).find('.tr-id-'+response).remove();
+                            Toast.fire({
+                                icon: 'success',
+                                title: 'Os dados foram salvos com successo!'
+                            });
+                            return response;
+                        }).catch((error) => {
+                            // console.log(error);
+                            Swal.showValidationMessage(error.responseJSON);
+                        });
+            }
         });
     });
 });

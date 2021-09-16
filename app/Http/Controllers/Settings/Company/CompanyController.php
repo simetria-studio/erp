@@ -9,12 +9,12 @@ use Illuminate\Http\Request;
 
 class CompanyController extends Controller
 {
-    public function viewCompany()
+    public function view_company()
     {
         return View('settings.companies.create');
     }
 
-    public function storeCompany(Request $request)
+    public function store_company(Request $request)
     {
         $company['user_id'] = auth()->user()->id;
         $company['corporate_name'] = $request->corporate_name;

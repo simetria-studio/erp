@@ -28,14 +28,14 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::prefix('settings')->group(function () {
         Route::prefix('admin')->group(function () {
             // Menus
-            Route::get('menu/registration', [AdminController::class, 'viewMenu'])->name('setting.admin.menu');
-            Route::post('menu/registration', [AdminController::class, 'storeMenu'])->name('setting.admin.menu');
-            Route::delete('menu/registration', [AdminController::class, 'destroyMenu'])->name('setting.admin.menu');
+            Route::get('menu/registration', [AdminController::class, 'view_menu'])->name('setting.admin.menu');
+            Route::post('menu/registration', [AdminController::class, 'store_menu'])->name('setting.admin.menu');
+            Route::delete('menu/registration', [AdminController::class, 'destroy_menu'])->name('setting.admin.menu');
         });
 
         Route::prefix('companies')->group(function () {
-            Route::get('registration', [CompanyController::class, 'viewCompany'])->name('setting.company.registration');
-            Route::post('registration', [CompanyController::class, 'storeCompany'])->name('setting.company.registration');
+            Route::get('registration', [CompanyController::class, 'view_company'])->name('setting.company.registration');
+            Route::post('registration', [CompanyController::class, 'store_company'])->name('setting.company.registration');
         });
     });
 });

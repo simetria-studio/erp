@@ -80,3 +80,33 @@ if(!function_exists('menuOptions')){
         // return json_decode(json_encode($main_access));
     }
 }
+
+if(!function_exists('geraRotas')){
+    function geraRotas(){
+        $rotas = "<?php\n\n";
+        foreach(MainAccess::all() as $main_access){
+            session(['main_access_id' => $main_access->id]); // Guardando sessão do id para recuperar dentro da rota
+            $rotas .= "Route::prefix('$main_access->menu_route')->group(function () {\n";
+                foreach(Module::all() as $module){
+                    if($module->main_access_id == session()->get('main_access_id')){
+                        session(['module_id' => $module->id]); // Guardando sessão do id para recuperar dentro da rota
+                        $rotas .= "\tRoute::prefix('$module->module_route')->group(function () {\n";
+                            foreach(Program::all() as $program){
+                                if($program->module_id == session()->get('module_id')){
+                                    if($program->method_get == 'true') $rotas .= "\t\tRoute::get('$program->program_route', [$program->controller_name::class, 'view_$program->function_name'])->name('$program->route_name');\n";
+                                    if($program->method_post == 'true') $rotas .= "\t\tRoute::post('$program->program_route', [$program->controller_name::class, 'store_$program->function_name'])->name('$program->route_name');\n";
+                                    if($program->method_delete == 'true') $rotas .= "\t\tRoute::delete('$program->program_route', [$program->controller_name::class, 'destroy_$program->function_name'])->name('$program->route_name');\n\n";
+                                }
+                            }
+                            session()->forget('module_id');
+                        $rotas .= "\t});\n\n";
+                    }
+                }
+                session()->forget('main_access_id');
+            $rotas .= "});\n\n";
+        }
+        $fp_access = fopen('../routes/routes.php', 'w');
+        fwrite($fp_access, $rotas);
+        fclose($fp_access);
+    }
+}

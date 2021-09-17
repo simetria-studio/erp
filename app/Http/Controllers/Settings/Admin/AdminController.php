@@ -127,6 +127,7 @@ class AdminController extends Controller
                     $program_fresh = Program::find($request->id);
                     $program_fresh->update($program);
                     $program = $program_fresh->fresh();
+                    geraRotas();
 
                     return response()->json([
                         'tb_id' => $program->id,
@@ -157,6 +158,7 @@ class AdminController extends Controller
                     ]);
                 }else{
                     $program = Program::create($program);
+                    geraRotas();
 
                     return response()->json([
                         'table' => '<tr class="tr-id-'.$program->id.'">

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Settings\Admin;
 
+use App\Models\User;
+use App\Models\MenuAccess;
 use App\Models\MainAccess;
 use App\Models\Module;
 use App\Models\Program;
@@ -231,16 +233,22 @@ class AdminController extends Controller
                 $module = Module::where('main_access_id', $request->id)->delete();
                 $program = Program::where('main_access_id', $request->id)->delete();
 
+                geraRotas();
+
                 return response()->json($request->id);
             break;
             case 'module':
                 $module = Module::find($request->id)->delete();
                 $program = Program::where('module_id', $request->id)->delete();
 
+                geraRotas();
+
                 return response()->json($request->id);
             break;
             case 'program':
                 $program = Program::find($request->id)->delete();
+
+                geraRotas();
 
                 return response()->json($request->id);
             break;
@@ -249,6 +257,25 @@ class AdminController extends Controller
 
     public function view_release_access($user_id = null)
     {
-        return view('settings.admin.releaseAccess');
+        $users = User::all();
+        $programs = null;
+        $menu_accesses = null;
+
+        if($user_id){
+            $menu_accesses = MenuAccess::with('mainAccess','module', 'program')->where('user_id', $user_id)->get();
+            $not_program = [];
+            foreach ($menu_accesses as $menu_access) {
+                $not_program[] = $menu_access->program_id;
+            }
+
+            $programs = Program::with('mainAccess','module')->whereNotIn('id', $not_program)->get();
+        }
+
+        return view('settings.admin.releaseAccess', compact('user_id', 'users', 'programs', 'menu_accesses'));
+    }
+
+    public function store_release_access(Request $request)
+    {
+        dd($request->all());
     }
 }

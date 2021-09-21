@@ -5,15 +5,15 @@ $(document).ready(function(){
         }
     });
 
-    $('form').on('submit', function(e){
-        e.preventDefault();
-        $(this).find('.btn-modal-salvar').trigger('click');
-    });
-    $('form').find('input').on('keyup', function(e){
-        if(e.keyCode == 13){
-            $(this).find('.btn-modal-salvar').trigger('click');
-        }
-    });
+    // $('form').on('submit', function(e){
+    //     e.preventDefault();
+    //     $(this).find('.btn-modal-salvar').trigger('click');
+    // });
+    // $('form').find('input').on('keyup', function(e){
+    //     if(e.keyCode == 13){
+    //         $(this).find('.btn-modal-salvar').trigger('click');
+    //     }
+    // });
 
     // Condifgurações
     var Toast = Swal.mixin({
@@ -23,7 +23,27 @@ $(document).ready(function(){
         timer: 4000
     });
 
-    // $('.select2').select2();
+    $('.select2').select2();
+    $(".table").DataTable({
+        "responsive": true,
+        "autoWidth": false,
+        "language": {
+            "url": '/plugin/datatables-language/pt-br.json',
+        }
+    });
+
+    $(document).on('change', '.check-all', function(){
+        var column = $(this).data('column');
+        if($(this).is(":checked")){
+            $(this).closest('table').find(column).each(function(){
+                $(this).find('[type="checkbox"]').prop('checked', true);
+            });
+        }else{
+            $(this).closest('table').find(column).each(function(){
+                $(this).find('[type="checkbox"]').prop('checked', false);
+            });
+        }
+    });
 
     // Função salva dados gerais modal
     $(document).on('click', '.btn-modal-salvar', function(){

@@ -1,0 +1,32 @@
+.select2.select2-container {
+    width: 100%;
+    background: var(--iq-light-border);
+    border: none;
+    font-size: 14px;
+    margin-right: 15px;
+    border-radius: 10px;
+
+    .select2-selection {
+        background-color: #fff;
+        border: 1px solid #aaa;
+        border-radius: 10px;
+        height: 45px;
+        line-height: 45px;
+        background: var(--iq-light-border);
+        border: none;
+        font-size: 14px;
+        margin-right: 15px;
+        padding-top: 10px;
+
+        .select2-selection__rendered {
+            color: #fff;
+        }
+
+        .select2-selection__arrow {
+            top: 10px;
+            b {
+                border-color: #fff transparent transparent transparent;
+            }
+        }
+    }
+}

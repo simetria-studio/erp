@@ -18,4 +18,19 @@ class MenuAccess extends Model
         'change_option',
         'delete_option',
     ];
+
+    public function mainAccess()
+    {
+        return $this->belongsTo(MainAccess::class, 'main_access_id');
+    }
+
+    public function module()
+    {
+        return $this->belongsTo(Module::class, 'module_id');
+    }
+
+    public function program()
+    {
+        return $this->belongsTo(Program::class, 'prgram_id');
+    }
 }

@@ -26,6 +26,12 @@
         <link href='{{asset('theme/dark-html/fullcalendar/timegrid/main.css')}}' rel='stylesheet' />
         <link href='{{asset('theme/dark-html/fullcalendar/list/main.css')}}' rel='stylesheet' />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+        <link rel="stylesheet" href="{{asset('plugin/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
+        <link rel="stylesheet" href="{{asset('plugin/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
+
+        {{-- Custom --}}
+        <link rel="stylesheet" href="{{asset('css/custom.min.css')}}">
     </head>
     <body class="top-tab-horizontal">
         <!-- loader Start -->
@@ -251,16 +257,20 @@
                                             <li class="{{Request::is($main_access->menu_route.'/*') ? 'active' : ''}}">
                                                 <a href="#{{$main_access->menu_route}}" class="iq-waves-effect collapsed" data-toggle="collapse" aria-expanded="false"><i class="{{$main_access->icon}}"></i><span>{{$main_access->menu_name}}</span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
                                                 <ul id="{{$main_access->menu_route}}" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle">
-                                                    @foreach ($main_access->modules as $modules)
-                                                        <li class="{{Request::is($main_access->menu_route.'/'.$modules->module_route.'/*') ? 'active' : ''}}">
-                                                            <a href="#{{$modules->module_route}}" class="iq-waves-effect collapsed"  data-toggle="collapse" aria-expanded="false"><span>{{$modules->module_name}}</span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
-                                                            <ul id="{{$modules->module_route}}" class="iq-submenu iq-submenu-data collapse" data-parent="#{{$main_access->menu_route}}">
-                                                                @foreach ($modules->programs as $programs)
-                                                                    <li class="{{Request::is($main_access->menu_route.'/'.$modules->module_route.'/'.$programs->program_route) ? 'active' : ''}}"><a href="{{route($programs->route_name)}}">{{$programs->program_name}}</a></li>
-                                                                @endforeach
-                                                            </ul>
-                                                        </li>
-                                                    @endforeach
+                                                    @isset ($main_access->modules)
+                                                        @foreach ($main_access->modules as $modules)
+                                                            <li class="{{Request::is($main_access->menu_route.'/'.$modules->module_route.'/*') ? 'active' : ''}}">
+                                                                <a href="#{{$modules->module_route}}" class="iq-waves-effect collapsed"  data-toggle="collapse" aria-expanded="false"><span>{{$modules->module_name}}</span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
+                                                                <ul id="{{$modules->module_route}}" class="iq-submenu iq-submenu-data collapse" data-parent="#{{$main_access->menu_route}}">
+                                                                    @isset ($modules->programs)
+                                                                        @foreach ($modules->programs as $programs)
+                                                                            <li class="{{Request::routeIs($programs->route_name) ? 'active' : ''}}"><a href="{{route($programs->route_name)}}">{{$programs->program_name}}</a></li>
+                                                                        @endforeach
+                                                                    @endisset
+                                                                </ul>
+                                                            </li>
+                                                        @endforeach
+                                                    @endisset
                                                 </ul>
                                             </li>
                                         @endforeach
@@ -345,5 +355,11 @@
         <script src="{{asset('theme/dark-html/js/chart-custom.js')}}"></script>
         <!-- Custom JavaScript -->
         <script src="{{asset('theme/dark-html/js/custom.js')}}"></script>
+
+        <script src="{{asset('plugin/datatables/jquery.dataTables.min.js')}}"></script>
+        <script src="{{asset('plugin/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
+        <script src="{{asset('plugin/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
+
+        @yield('script')
     </body>
 </html>

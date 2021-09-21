@@ -24,6 +24,7 @@ class CreateProgramsTable extends Migration
             $table->string('controller_name');
             $table->string('method_get')->nullable();
             $table->string('method_post')->nullable();
+            $table->string('method_put')->nullable();
             $table->string('method_delete')->nullable();
             $table->timestamps();
         });

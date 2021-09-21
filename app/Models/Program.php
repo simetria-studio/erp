@@ -19,6 +19,7 @@ class Program extends Model
         'controller_name',
         'method_get',
         'method_post',
+        'method_put',
         'method_delete',
     ];
 

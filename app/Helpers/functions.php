@@ -95,6 +95,7 @@ if(!function_exists('geraRotas')){
                                 if($program->module_id == session()->get('module_id')){
                                     if($program->method_get == 'true') $rotas .= "\t\tRoute::get('$program->program_route', [$program->controller_name::class, 'view_$program->function_name'])->name('$program->route_name');\n";
                                     if($program->method_post == 'true') $rotas .= "\t\tRoute::post('$program->program_route', [$program->controller_name::class, 'store_$program->function_name'])->name('$program->route_name');\n";
+                                    if($program->method_put == 'true') $rotas .= "\t\tRoute::put('$program->program_route', [$program->controller_name::class, 'update_$program->function_name'])->name('$program->route_name');\n";
                                     if($program->method_delete == 'true') $rotas .= "\t\tRoute::delete('$program->program_route', [$program->controller_name::class, 'destroy_$program->function_name'])->name('$program->route_name');\n\n";
                                 }
                             }

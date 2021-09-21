@@ -32,11 +32,12 @@ $(document).ready(function(){
         let save_route = $(this).data('save_route');
         let update_table = $(this).data('update_table');
         let table_tbody = $(this).data('tbody');
+        let type = $(this).data('type');
 
-        var form_data = new FormData($(save_target)[0]);
+        var form_data = $(save_target).serializeArray();
         var checkbox = $(save_target).find("input[type=checkbox]");
         $.each(checkbox, function(key, val) {
-            form_data.append($(val).attr('name'), $(this).is(':checked'))
+            form_data.push({name: $(this).attr('name'), value: $(this).is(':checked')});
         });
 
         // Por mais que tenha erro, limpamos para os outros que não tenha
@@ -50,13 +51,11 @@ $(document).ready(function(){
 
         $.ajax({
             url: save_route,
-            type: "POST",
+            type: (type == 'PUT' ? 'PUT' : 'POST'),
             data: form_data,
-            cache: false,
-            contentType: false,
-            processData: false,
+            enctype: 'multipart/form-data',
             success: (data) => {
-                console.log(data);
+                // console.log(data);
                 // Procuramos a div adcionada recentemente para removemos e fechamos o modal
                 modal.find('input, select').attr('readonly', false);
                 modal.find('button').attr('disabled', false);

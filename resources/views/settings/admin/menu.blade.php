@@ -131,6 +131,7 @@
                                                             <td class="text-light">
                                                                 <span><b>Get:</b> {{$program->method_get == 'true' ? 'view_'.$program->function_name : ''}}</span><br>
                                                                 <span><b>Post:</b> {{$program->method_post == 'true' ? 'store_'.$program->function_name : ''}}</span><br>
+                                                                <span><b>Put:</b> {{$program->method_put == 'true' ? 'update_'.$program->function_name : ''}}</span><br>
                                                                 <span><b>Delete:</b> {{$program->method_delete == 'true' ? 'destroy_'.$program->function_name : ''}}</span><br>
                                                             </td>
                                                             <td class="text-light">{{$program->program_route}}</td>
@@ -139,6 +140,7 @@
                                                             <td class="text-light">
                                                                 <span><b>Get:</b> {{$program->method_get == 'true' ? 'SIM' : 'NÃO'}}</span><br>
                                                                 <span><b>Post:</b> {{$program->method_post == 'true' ? 'SIM' : 'NÃO'}}</span><br>
+                                                                <span><b>Put:</b> {{$program->method_put == 'true' ? 'SIM' : 'NÃO'}}</span><br>
                                                                 <span><b>Delete:</b> {{$program->method_delete == 'true' ? 'SIM' : 'NÃO'}}</span><br>
                                                             </td>
                                                             <td class="text-light">
@@ -227,7 +229,7 @@
                     </div>
                     <div class="modal-footer justify-content-between">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="ri-close-line"></i> Fechar</button>
-                        <button type="button" class="btn btn-primary btn-modal-salvar" data-tbody=".MenuPrincipal" data-update_table="S" data-save_target="#postEditarMenuPrincipal" data-save_route="{{route('setting.admin.menu')}}"><i class="ri-save-line"></i> Salvar</button>
+                        <button type="button" class="btn btn-primary btn-modal-salvar" data-type="PUT" data-tbody=".MenuPrincipal" data-update_table="S" data-save_target="#postEditarMenuPrincipal" data-save_route="{{route('setting.admin.menu')}}"><i class="ri-save-line"></i> Salvar</button>
                     </div>
                 </form>
             </div>
@@ -309,7 +311,7 @@
                     </div>
                     <div class="modal-footer justify-content-between">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="ri-close-line"></i> Fechar</button>
-                        <button type="button" class="btn btn-primary btn-modal-salvar" data-tbody=".Modulo" data-update_table="S" data-save_target="#postEditarModulo" data-save_route="{{route('setting.admin.menu')}}"><i class="ri-save-line"></i> Salvar</button>
+                        <button type="button" class="btn btn-primary btn-modal-salvar" data-type="PUT" data-tbody=".Modulo" data-update_table="S" data-save_target="#postEditarModulo" data-save_route="{{route('setting.admin.menu')}}"><i class="ri-save-line"></i> Salvar</button>
                     </div>
                 </form>
             </div>
@@ -374,6 +376,16 @@
                                         <p class="mb-0"> Metodo Post </p>
                                         <input type="checkbox" name="method_post" class="custom-control-input bg-success" id="method_post_check" checked="">
                                         <label class="custom-control-label" for="method_post_check">
+                                            <span class="switch-icon-left"><i class="fa fa-check"></i></span>
+                                            <span class="switch-icon-right"><i class="fa fa-check"></i></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="custom-control custom-switch custom-switch-icon custom-switch-color custom-control-inline">
+                                    <div class="custom-switch-inner">
+                                        <p class="mb-0"> Metodo Put </p>
+                                        <input type="checkbox" name="method_put" class="custom-control-input bg-success" id="method_put_check" checked="">
+                                        <label class="custom-control-label" for="method_put_check">
                                             <span class="switch-icon-left"><i class="fa fa-check"></i></span>
                                             <span class="switch-icon-right"><i class="fa fa-check"></i></span>
                                         </label>
@@ -466,6 +478,16 @@
                                 </div>
                                 <div class="custom-control custom-switch custom-switch-icon custom-switch-color custom-control-inline">
                                     <div class="custom-switch-inner">
+                                        <p class="mb-0"> Metodo Put </p>
+                                        <input type="checkbox" name="method_put" class="custom-control-input bg-success" id="method_put_check-edit" checked="">
+                                        <label class="custom-control-label" for="method_put_check-edit">
+                                            <span class="switch-icon-left"><i class="fa fa-check"></i></span>
+                                            <span class="switch-icon-right"><i class="fa fa-check"></i></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="custom-control custom-switch custom-switch-icon custom-switch-color custom-control-inline">
+                                    <div class="custom-switch-inner">
                                         <p class="mb-0"> Metodo Delete </p>
                                         <input type="checkbox" name="method_delete" class="custom-control-input bg-success" id="method_delete_check-edit" checked="">
                                         <label class="custom-control-label" for="method_delete_check-edit">
@@ -479,7 +501,7 @@
                     </div>
                     <div class="modal-footer justify-content-between">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="ri-close-line"></i> Fechar</button>
-                        <button type="button" class="btn btn-primary btn-modal-salvar" data-tbody=".Programa" data-update_table="S" data-save_target="#postEditarPrograma" data-save_route="{{route('setting.admin.menu')}}"><i class="ri-save-line"></i> Salvar</button>
+                        <button type="button" class="btn btn-primary btn-modal-salvar" data-type="PUT" data-tbody=".Programa" data-update_table="S" data-save_target="#postEditarPrograma" data-save_route="{{route('setting.admin.menu')}}"><i class="ri-save-line"></i> Salvar</button>
                     </div>
                 </form>
             </div>

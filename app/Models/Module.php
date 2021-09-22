@@ -13,6 +13,7 @@ class Module extends Model
         'main_access_id',
         'module_name',
         'module_route',
+        'position',
     ];
 
     public function mainAccess()

@@ -19,9 +19,9 @@ class CreateMenuAccessesTable extends Migration
             $table->string('main_access_id');
             $table->string('module_id');
             $table->string('program_id');
-            $table->string('save_option');
-            $table->string('change_option');
-            $table->string('delete_option');
+            $table->string('save_option')->nullable();
+            $table->string('change_option')->nullable();
+            $table->string('delete_option')->nullable();
             $table->timestamps();
         });
     }

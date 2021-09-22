@@ -17,6 +17,7 @@ class Program extends Model
         'program_route',
         'route_name',
         'controller_name',
+        'position',
         'method_get',
         'method_post',
         'method_put',

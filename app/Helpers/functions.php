@@ -9,7 +9,7 @@ if(!function_exists('menuOptions')){
     function menuOptions(){
         if(auth()->user()->permission == 10){
             $access = [];
-            foreach(MainAccess::all() as $main_access){
+            foreach(MainAccess::orderBy('position', 'ASC')->get() as $main_access){
                 $access[$main_access->id] = [
                     'id' => $main_access->id,
                     'menu_name' => $main_access->menu_name,
@@ -18,7 +18,7 @@ if(!function_exists('menuOptions')){
                 ];
             }
 
-            foreach(Module::all() as $modules){
+            foreach(Module::orderBy('position', 'ASC')->get() as $modules){
                 $access[$modules->main_access_id]['modules'][$modules->id] = [
                     'id' => $modules->id,
                     'main_access_id' => $modules->main_access_id,
@@ -27,7 +27,7 @@ if(!function_exists('menuOptions')){
                 ];
             }
 
-            foreach(Program::all() as $programs){
+            foreach(Program::orderBy('position', 'ASC')->get() as $programs){
                 $access[$programs->main_access_id]['modules'][$programs->module_id]['programs'][$programs->id] = [
                     'id' => $programs->id,
                     'program_name' => $programs->program_name,
@@ -41,7 +41,7 @@ if(!function_exists('menuOptions')){
         }else{
             $access_limited = [];
             foreach(MenuAccess::where('user_id', auth()->user()->id)->get() as $menu_access){
-                foreach(MainAccess::all() as $main_access){
+                foreach(MainAccess::orderBy('position', 'ASC')->get() as $main_access){
                     if($menu_access->main_access_id == $main_access->id){
                         $access_limited[$main_access->id] = [
                             'id' => $main_access->id,
@@ -52,7 +52,7 @@ if(!function_exists('menuOptions')){
                     }
                 }
 
-                foreach(Module::all() as $modules){
+                foreach(Module::orderBy('position', 'ASC')->get() as $modules){
                     if($menu_access->module_id == $modules->id){
                         $access_limited[$modules->main_access_id]['modules'][$modules->id] = [
                             'id' => $modules->id,
@@ -63,7 +63,7 @@ if(!function_exists('menuOptions')){
                     }
                 }
 
-                foreach(Program::all() as $programs){
+                foreach(Program::orderBy('position', 'ASC')->get() as $programs){
                     if($menu_access->program_id == $programs->id){
                         $access_limited[$programs->main_access_id]['modules'][$programs->module_id]['programs'][$programs->id] = [
                             'id' => $programs->id,
@@ -109,5 +109,39 @@ if(!function_exists('geraRotas')){
         $fp_access = fopen('../routes/routes.php', 'w');
         fwrite($fp_access, $rotas);
         fclose($fp_access);
+    }
+}
+
+if(!function_exists('getPosition')){
+    function getPosition($position, $id, $parent, $access){
+        switch($access){
+            case 'main_access':
+                $main_accesses = MainAccess::where('position', '>=', $position)->get();
+
+                foreach($main_accesses as $main_access){
+                    if($main_access->id !== $id){
+                        MainAccess::find($main_access->id)->update(['position' => ($position+1)]);
+                    }
+                }
+            break;
+            case 'module':
+                $modules = Module::where('main_access_id', $parent)->where('position', '>=', $position)->get();
+
+                foreach($modules as $module){
+                    if($module->id !== $id){
+                        Module::find($module->id)->update(['position' => ($position+1)]);
+                    }
+                }
+            break;
+            case 'program':
+                $programs = Program::where('module_id', $parent)->where('position', '>=', $position)->get();
+
+                foreach($programs as $program){
+                    if($program->id !== $id){
+                        Program::find($program->id)->update(['position' => ($position+1)]);
+                    }
+                }
+            break;
+        }
     }
 }

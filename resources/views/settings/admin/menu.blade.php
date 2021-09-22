@@ -186,6 +186,10 @@
                                 <input type="text" name="menu_route" class="form-control" placeholder="Rota do Menu Principal">
                             </div>
                             <div class="form-group col-12">
+                                <label for="position">Posição do Menu</label>
+                                <input type="number" min="0" max="10" value="0" name="position" class="form-control" placeholder="posição do Menu">
+                            </div>
+                            <div class="form-group col-12">
                                 <label for="icon">Icone do Menu</label>
                                 <input type="text" name="icon" class="form-control" placeholder="Icone do Menu">
                             </div>
@@ -220,6 +224,10 @@
                             <div class="form-group col-12">
                                 <label for="menu_route">Rota do Menu Principal</label>
                                 <input type="text" name="menu_route" class="form-control" placeholder="Rota do Menu Principal">
+                            </div>
+                            <div class="form-group col-12">
+                                <label for="position">Posição do Menu</label>
+                                <input type="number" min="0" max="10" value="0" name="position" class="form-control" placeholder="posição do Menu">
                             </div>
                             <div class="form-group col-12">
                                 <label for="icon">Icone do Menu</label>
@@ -257,6 +265,10 @@
                                         <option value="{{$mainaccess->id}}">{{$mainaccess->menu_name}}</option>
                                     @endforeach
                                 </select>
+                            </div>
+                            <div class="form-group col-12">
+                                <label for="position">Posição do Modulo</label>
+                                <input type="number" min="0" max="100" value="0" name="position" class="form-control" placeholder="posição do Modulo">
                             </div>
                             <div class="form-group col-12">
                                 <label for="module_name">Nome do Modulo</label>
@@ -300,6 +312,10 @@
                                 </select>
                             </div>
                             <div class="form-group col-12">
+                                <label for="position">Posição do Modulo</label>
+                                <input type="number" min="0" max="100" value="0" name="position" class="form-control" placeholder="posição do Modulo">
+                            </div>
+                            <div class="form-group col-12">
                                 <label for="module_name">Nome do Modulo</label>
                                 <input type="text" name="module_name" class="form-control" placeholder="Nome do Sub. Menu">
                             </div>
@@ -339,6 +355,10 @@
                                         <option value="{{$module->id}}">{{$module->module_name}}</option>
                                     @endforeach
                                 </select>
+                            </div>
+                            <div class="form-group col-12">
+                                <label for="position">Posição do Programa</label>
+                                <input type="number" min="0" max="1000" value="0" name="position" class="form-control" placeholder="posição do Programa">
                             </div>
                             <div class="form-group col-12">
                                 <label for="program_name">Nome do Programa</label>
@@ -434,6 +454,10 @@
                                         <option value="{{$module->id}}">{{$module->module_name}}</option>
                                     @endforeach
                                 </select>
+                            </div>
+                            <div class="form-group col-12">
+                                <label for="position">Posição do Programa</label>
+                                <input type="number" min="0" max="1000" value="0" name="position" class="form-control" placeholder="posição do Programa">
                             </div>
                             <div class="form-group col-12">
                                 <label for="program_name">Nome do Programa</label>

@@ -107,7 +107,7 @@
                                                                 <td class="text-light column-1">
                                                                     <div class="custom-control custom-switch custom-switch-icon custom-switch-color custom-control-inline">
                                                                         <div class="custom-switch-inner">
-                                                                            <input type="checkbox" name="release[release][]" class="custom-control-input bg-success" id="release_check-{{$program->id}}">
+                                                                            <input type="checkbox" name="release[{{$program->id}}][release]" class="custom-control-input bg-success" id="release_check-{{$program->id}}">
                                                                             <label class="custom-control-label" for="release_check-{{$program->id}}">
                                                                                 <span class="switch-icon-left"><i class="fa fa-check"></i></span>
                                                                                 <span class="switch-icon-right"><i class="fa fa-check"></i></span>
@@ -118,7 +118,7 @@
                                                                 <td class="text-light column-2">
                                                                     <div class="custom-control custom-switch custom-switch-icon custom-switch-color custom-control-inline">
                                                                         <div class="custom-switch-inner">
-                                                                            <input type="checkbox" name="release[save][]" class="custom-control-input bg-success" id="save_check-{{$program->id}}">
+                                                                            <input type="checkbox" name="release[{{$program->id}}][save]" class="custom-control-input bg-success" id="save_check-{{$program->id}}">
                                                                             <label class="custom-control-label" for="save_check-{{$program->id}}">
                                                                                 <span class="switch-icon-left"><i class="fa fa-check"></i></span>
                                                                                 <span class="switch-icon-right"><i class="fa fa-check"></i></span>
@@ -129,7 +129,7 @@
                                                                 <td class="text-light column-3">
                                                                     <div class="custom-control custom-switch custom-switch-icon custom-switch-color custom-control-inline">
                                                                         <div class="custom-switch-inner">
-                                                                            <input type="checkbox" name="release[change][]" class="custom-control-input bg-success" id="change_check-{{$program->id}}">
+                                                                            <input type="checkbox" name="release[{{$program->id}}][change]" class="custom-control-input bg-success" id="change_check-{{$program->id}}">
                                                                             <label class="custom-control-label" for="change_check-{{$program->id}}">
                                                                                 <span class="switch-icon-left"><i class="fa fa-check"></i></span>
                                                                                 <span class="switch-icon-right"><i class="fa fa-check"></i></span>
@@ -140,7 +140,7 @@
                                                                 <td class="text-light column-4">
                                                                     <div class="custom-control custom-switch custom-switch-icon custom-switch-color custom-control-inline">
                                                                         <div class="custom-switch-inner">
-                                                                            <input type="checkbox" name="release[delete][]" class="custom-control-input bg-success" id="delete_check-{{$program->id}}">
+                                                                            <input type="checkbox" name="release[{{$program->id}}][delete]" class="custom-control-input bg-success" id="delete_check-{{$program->id}}">
                                                                             <label class="custom-control-label" for="delete_check-{{$program->id}}">
                                                                                 <span class="switch-icon-left"><i class="fa fa-check"></i></span>
                                                                                 <span class="switch-icon-right"><i class="fa fa-check"></i></span>
@@ -150,14 +150,14 @@
                                                                 </td>
                                                                 <td class="text-light">
                                                                     {{$program->mainAccess->menu_name}}
-                                                                    <input type="hidden" name="release[main_access_id][]" value="{{$program->main_access_id}}">
+                                                                    <input type="hidden" name="release[{{$program->id}}][main_access_id]" value="{{$program->main_access_id}}">
                                                                 </td>
                                                                 <td class="text-light">
                                                                     {{$program->module->module_name}}
-                                                                    <input type="hidden" name="release[modue_id][]" value="{{$program->module_id}}">
+                                                                    <input type="hidden" name="release[{{$program->id}}][module_id]" value="{{$program->module_id}}">
                                                                 </td>
                                                                 <td class="text-light">
-                                                                    <input type="hidden" name="release[program_id][]" value="{{$program->id}}">
+                                                                    <input type="hidden" name="release[{{$program->id}}][program_id]" value="{{$program->id}}">
                                                                     {{$program->program_name}}
                                                                 </td>
                                                             </tr>
@@ -174,7 +174,139 @@
                                     </div>
 
                                     <div class="tab-pane fade" id="pills-note_released-fill" role="tabpanel" aria-labelledby="pills-profile-tab-fill">
-                                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                                        <form action="{{route('setting.admin.release_access')}}" method="post">
+                                            @csrf
+                                            @method('PUT')
+                                            <input type="hidden" name="type" value="remove">
+                                            <input type="hidden" name="user_id" value="{{$user_id}}">
+                                            <div class="table-responsive">
+                                                <table class="table table-striped table-hover">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="text-light">
+                                                                <div class="custom-control custom-switch custom-switch-icon custom-switch-color custom-control-inline">
+                                                                    <div class="custom-switch-inner">
+                                                                        <input type="checkbox" class="custom-control-input bg-success check-all" data-column=".column-1" id="remove_check-all">
+                                                                        <label class="custom-control-label" for="remove_check-all">
+                                                                            <span class="switch-icon-left"><i class="fa fa-check"></i></span>
+                                                                            <span class="switch-icon-right"><i class="fa fa-check"></i></span>
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                                Retirar
+                                                            </th>
+                                                            <th class="text-light">
+                                                                <div class="custom-control custom-switch custom-switch-icon custom-switch-color custom-control-inline">
+                                                                    <div class="custom-switch-inner">
+                                                                        <input type="checkbox" class="custom-control-input bg-success check-all" data-column=".column-2" id="save_check-edit-all">
+                                                                        <label class="custom-control-label" for="save_check-edit-all">
+                                                                            <span class="switch-icon-left"><i class="fa fa-check"></i></span>
+                                                                            <span class="switch-icon-right"><i class="fa fa-check"></i></span>
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                                Salvar
+                                                            </th>
+                                                            <th class="text-light">
+                                                                <div class="custom-control custom-switch custom-switch-icon custom-switch-color custom-control-inline">
+                                                                    <div class="custom-switch-inner">
+                                                                        <input type="checkbox" class="custom-control-input bg-success check-all" data-column=".column-3" id="change_check-edit-all">
+                                                                        <label class="custom-control-label" for="change_check-edit-all">
+                                                                            <span class="switch-icon-left"><i class="fa fa-check"></i></span>
+                                                                            <span class="switch-icon-right"><i class="fa fa-check"></i></span>
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                                Alterar
+                                                            </th>
+                                                            <th class="text-light">
+                                                                <div class="custom-control custom-switch custom-switch-icon custom-switch-color custom-control-inline">
+                                                                    <div class="custom-switch-inner">
+                                                                        <input type="checkbox" class="custom-control-input bg-success check-all" data-column=".column-4" id="delete_check-edit-all">
+                                                                        <label class="custom-control-label" for="delete_check-edit-all">
+                                                                            <span class="switch-icon-left"><i class="fa fa-check"></i></span>
+                                                                            <span class="switch-icon-right"><i class="fa fa-check"></i></span>
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                                Apagar
+                                                            </th>
+                                                            <th class="text-light">Acesso Principal</th>
+                                                            <th class="text-light">Modulo</th>
+                                                            <th class="text-light">Programa</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach ($menu_accesses as $menu_access)
+                                                            <tr>
+                                                                <td class="text-light column-1">
+                                                                    <input type="hidden" name="remove[{{$menu_access->id}}][id]" value="{{$menu_access->id}}">
+                                                                    <div class="custom-control custom-switch custom-switch-icon custom-switch-color custom-control-inline">
+                                                                        <div class="custom-switch-inner">
+                                                                            <input type="checkbox" name="remove[{{$menu_access->id}}][remove]" class="custom-control-input bg-success" id="remove_check-{{$menu_access->program_id}}">
+                                                                            <label class="custom-control-label" for="remove_check-{{$menu_access->program_id}}">
+                                                                                <span class="switch-icon-left"><i class="fa fa-check"></i></span>
+                                                                                <span class="switch-icon-right"><i class="fa fa-check"></i></span>
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td class="text-light column-2">
+                                                                    <div class="custom-control custom-switch custom-switch-icon custom-switch-color custom-control-inline">
+                                                                        <div class="custom-switch-inner">
+                                                                            <input type="checkbox" name="remove[{{$menu_access->id}}][save]" class="custom-control-input bg-success" @if($menu_access->save_option == 'true') checked @endif id="save_check-{{$menu_access->program_id}}">
+                                                                            <label class="custom-control-label" for="save_check-{{$menu_access->program_id}}">
+                                                                                <span class="switch-icon-left"><i class="fa fa-check"></i></span>
+                                                                                <span class="switch-icon-right"><i class="fa fa-check"></i></span>
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td class="text-light column-3">
+                                                                    <div class="custom-control custom-switch custom-switch-icon custom-switch-color custom-control-inline">
+                                                                        <div class="custom-switch-inner">
+                                                                            <input type="checkbox" name="remove[{{$menu_access->id}}][change]" class="custom-control-input bg-success" @if($menu_access->change_option == 'true') checked @endif id="change_check-{{$menu_access->program_id}}">
+                                                                            <label class="custom-control-label" for="change_check-{{$menu_access->program_id}}">
+                                                                                <span class="switch-icon-left"><i class="fa fa-check"></i></span>
+                                                                                <span class="switch-icon-right"><i class="fa fa-check"></i></span>
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td class="text-light column-4">
+                                                                    <div class="custom-control custom-switch custom-switch-icon custom-switch-color custom-control-inline">
+                                                                        <div class="custom-switch-inner">
+                                                                            <input type="checkbox" name="remove[{{$menu_access->id}}][delete]" class="custom-control-input bg-success" @if($menu_access->delete_option == 'true') checked @endif id="delete_check-{{$menu_access->program_id}}">
+                                                                            <label class="custom-control-label" for="delete_check-{{$menu_access->program_id}}">
+                                                                                <span class="switch-icon-left"><i class="fa fa-check"></i></span>
+                                                                                <span class="switch-icon-right"><i class="fa fa-check"></i></span>
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td class="text-light">
+                                                                    {{$menu_access->mainAccess->menu_name}}
+                                                                    <input type="hidden" name="remove[{{$menu_access->id}}][main_access_id]" value="{{$menu_access->main_access_id}}">
+                                                                </td>
+                                                                <td class="text-light">
+                                                                    {{$menu_access->module->module_name}}
+                                                                    <input type="hidden" name="remove[{{$menu_access->id}}][module_id]" value="{{$menu_access->module_id}}">
+                                                                </td>
+                                                                <td class="text-light">
+                                                                    <input type="hidden" name="remove[{{$menu_access->id}}][program_id]" value="{{$menu_access->id}}">
+                                                                    {{$menu_access->program_name}}
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="row justify-content-center">
+                                                <div class="col-12 col-md-6">
+                                                    <button type="submit" class="btn btn-block btn-primary"><i></i> Gravar</button>
+                                                </div>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
                             @else

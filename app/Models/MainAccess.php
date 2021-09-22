@@ -13,5 +13,6 @@ class MainAccess extends Model
         'menu_name',
         'menu_route',
         'icon',
+        'position',
     ];
 }

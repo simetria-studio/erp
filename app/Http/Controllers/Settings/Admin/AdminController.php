@@ -28,8 +28,11 @@ class AdminController extends Controller
                 $main_access['menu_name'] = mb_convert_case($request->menu_name, MB_CASE_TITLE);
                 $main_access['menu_route'] = mb_convert_case($request->menu_route, MB_CASE_LOWER);
                 $main_access['icon'] = mb_convert_case($request->icon, MB_CASE_LOWER);
-
+                $main_access['position'] = $request->position;
+                
                 $main_access = MainAccess::create($main_access);
+                
+                getPosition($request->position, $main_access->id, null, 'main_access');
 
                 return response()->json([
                     'table' => '<tr class="tr-id-'.$main_access->id.'">
@@ -51,8 +54,11 @@ class AdminController extends Controller
                 $module['main_access_id'] = $request->main_access_id;
                 $module['module_name'] = mb_convert_case($request->module_name, MB_CASE_TITLE);
                 $module['module_route'] = mb_convert_case($request->module_route, MB_CASE_LOWER);
+                $module['position'] = $request->position;
 
                 $module = Module::create($module);
+
+                getPosition($request->position, $module->id, $request->main_access_id, 'module');
 
                 return response()->json([
                     'table' => '<tr class="tr-id-'.$module->id.'">
@@ -79,12 +85,14 @@ class AdminController extends Controller
                 $program['program_route'] = mb_convert_case($request->program_route, MB_CASE_LOWER);
                 $program['route_name'] = $request->route_name;
                 $program['controller_name'] = $request->controller_name;
+                $program['position'] = $request->position;
                 $program['method_get'] = mb_convert_case($request->method_get, MB_CASE_LOWER);
                 $program['method_post'] = mb_convert_case($request->method_post, MB_CASE_LOWER);
                 $program['method_put'] = mb_convert_case($request->method_put, MB_CASE_LOWER);
                 $program['method_delete'] = mb_convert_case($request->method_delete, MB_CASE_LOWER);
 
                 $program = Program::create($program);
+                getPosition($request->position, $program->id, $request->module_id, 'program');
                 geraRotas();
 
                 return response()->json([
@@ -127,10 +135,13 @@ class AdminController extends Controller
                 $main_access['menu_name'] = mb_convert_case($request->menu_name, MB_CASE_TITLE);
                 $main_access['menu_route'] = mb_convert_case($request->menu_route, MB_CASE_LOWER);
                 $main_access['icon'] = mb_convert_case($request->icon, MB_CASE_LOWER);
+                $main_access['position'] = $request->position;
 
                 $mainaccess = MainAccess::find($request->id);
                 $mainaccess->update($main_access);
                 $main_access = $mainaccess->fresh();
+
+                getPosition($request->position, $main_access->id, null, 'main_access');
 
                 return response()->json([
                     'tb_id' => $main_access->id,
@@ -152,10 +163,13 @@ class AdminController extends Controller
                 $module['main_access_id'] = $request->main_access_id;
                 $module['module_name'] = mb_convert_case($request->module_name, MB_CASE_TITLE);
                 $module['module_route'] = mb_convert_case($request->module_route, MB_CASE_LOWER);
+                $module['position'] = $request->position;
 
                 $module_fresh = Module::find($request->id);
                 $module_fresh->update($module);
                 $module = $module_fresh->fresh();
+
+                getPosition($request->position, $module->id, $request->main_access_id, 'module');
 
                 return response()->json([
                     'tb_id' => $module->id,
@@ -182,6 +196,7 @@ class AdminController extends Controller
                 $program['program_route'] = mb_convert_case($request->program_route, MB_CASE_LOWER);
                 $program['route_name'] = $request->route_name;
                 $program['controller_name'] = $request->controller_name;
+                $program['position'] = $request->position;
                 $program['method_get'] = mb_convert_case($request->method_get, MB_CASE_LOWER);
                 $program['method_post'] = mb_convert_case($request->method_post, MB_CASE_LOWER);
                 $program['method_put'] = mb_convert_case($request->method_put, MB_CASE_LOWER);
@@ -190,6 +205,7 @@ class AdminController extends Controller
                 $program_fresh = Program::find($request->id);
                 $program_fresh->update($program);
                 $program = $program_fresh->fresh();
+                getPosition($request->position, $program->id, $request->module_id, 'program');
                 geraRotas();
 
                 return response()->json([
@@ -276,6 +292,48 @@ class AdminController extends Controller
 
     public function store_release_access(Request $request)
     {
-        dd($request->all());
+        $menu_access['user_id'] = $request->user_id;
+        foreach($request->release as $release){
+            if(isset($release['release'])){
+                $menu_access['main_access_id']  = $release['main_access_id'];
+                $menu_access['module_id']       = $release['module_id'];
+                $menu_access['program_id']      = $release['program_id'];
+                $menu_access['save_option']     = isset($release['save']) ? 'true' : 'false';
+                $menu_access['change_option']   = isset($release['change']) ? 'true' : 'false';
+                $menu_access['delete_option']   = isset($release['delete']) ? 'true' : 'false';
+
+                MenuAccess::create($menu_access);
+            }
+        }
+
+        $rota = route('setting.admin.release_access');
+        $msg = 'Menu liberado com Sucesso!';
+
+        return view('success', compact('rota', 'msg'));
+    }
+
+    public function update_release_access(Request $request)
+    {
+        $menu_access_up['user_id'] = $request->user_id;
+        foreach($request->remove as $remove){
+            $menu_access = MenuAccess::find($remove['id']);
+            if(isset($remove['remove'])){
+                $menu_access->delete();
+            }else{
+                $menu_access_up['main_access_id']  = $remove['main_access_id'];
+                $menu_access_up['module_id']       = $remove['module_id'];
+                $menu_access_up['program_id']      = $remove['program_id'];
+                $menu_access_up['save_option']     = isset($remove['save']) ? 'true' : 'false';
+                $menu_access_up['change_option']   = isset($remove['change']) ? 'true' : 'false';
+                $menu_access_up['delete_option']   = isset($remove['delete']) ? 'true' : 'false';
+
+                $menu_access->update($menu_access_up);
+            }
+        }
+
+        $rota = route('setting.admin.release_access');
+        $msg = 'Menu atualizado com Sucesso!';
+
+        return view('success', compact('rota', 'msg'));
     }
 }

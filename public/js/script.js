@@ -29,7 +29,8 @@ $(document).ready(function(){
         "autoWidth": false,
         "language": {
             "url": '/plugin/datatables-language/pt-br.json',
-        }
+        },
+        'order': false
     });
 
     $(document).on('change', '.check-all', function(){

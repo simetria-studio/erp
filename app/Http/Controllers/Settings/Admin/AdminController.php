@@ -15,9 +15,9 @@ class AdminController extends Controller
 {
     public function view_menu()
     {
-        $main_access = MainAccess::all();
-        $modules = Module::with('mainAccess')->get();
-        $programs = Program::with('mainAccess', 'module')->get();
+        $main_access = MainAccess::orderBy('position', 'ASC')->get();
+        $modules = Module::orderBy('position', 'ASC')->with('mainAccess')->get();
+        $programs = Program::orderBy('position', 'ASC')->with('mainAccess', 'module')->get();
         return view('settings.admin.menu', compact('main_access', 'modules', 'programs'));
     }
 

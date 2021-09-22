@@ -294,7 +294,7 @@
                                                                 </td>
                                                                 <td class="text-light">
                                                                     <input type="hidden" name="remove[{{$menu_access->id}}][program_id]" value="{{$menu_access->id}}">
-                                                                    {{$menu_access->program_name}}
+                                                                    {{$menu_access->program->program_name}}
                                                                 </td>
                                                             </tr>
                                                         @endforeach

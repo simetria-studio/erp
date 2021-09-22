@@ -31,6 +31,6 @@ class MenuAccess extends Model
 
     public function program()
     {
-        return $this->belongsTo(Program::class, 'prgram_id');
+        return $this->belongsTo(Program::class, 'program_id');
     }
 }

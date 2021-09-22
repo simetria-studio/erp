@@ -31,4 +31,20 @@
 .select2.select2-container .select2-selection .select2-selection__arrow b {
   border-color: #fff transparent transparent transparent;
 }
+
+table thead tr th {
+  color: #fff;
+}
+
+table thead tr td {
+  color: #fff;
+}
+
+table tbody tr th {
+  color: #fff;
+}
+
+table tbody tr td {
+  color: #fff;
+}
 /*# sourceMappingURL=custom.css.map */

@@ -24,3 +24,28 @@ Route::prefix('settings')->group(function () {
 
 });
 
+Route::prefix('registration')->group(function () {
+	Route::prefix('products_services')->group(function () {
+		Route::get('product/registration', [App\Http\Controllers\Registration\ProductServices\ProductController::class, 'view_product'])->name('registration.products_services.product');
+		Route::post('product/registration', [App\Http\Controllers\Registration\ProductServices\ProductController::class, 'store_product'])->name('registration.products_services.product');
+		Route::put('product/registration', [App\Http\Controllers\Registration\ProductServices\ProductController::class, 'update_product'])->name('registration.products_services.product');
+		Route::delete('product/registration', [App\Http\Controllers\Registration\ProductServices\ProductController::class, 'destroy_product'])->name('registration.products_services.product');
+
+		Route::get('services/registration', [App\Http\Controllers\Registration\ProductServices\ProductController::class, 'view_service'])->name('registration.products_services.services');
+		Route::post('services/registration', [App\Http\Controllers\Registration\ProductServices\ProductController::class, 'store_service'])->name('registration.products_services.services');
+		Route::put('services/registration', [App\Http\Controllers\Registration\ProductServices\ProductController::class, 'update_service'])->name('registration.products_services.services');
+		Route::delete('services/registration', [App\Http\Controllers\Registration\ProductServices\ProductController::class, 'destroy_service'])->name('registration.products_services.services');
+
+	});
+
+});
+
+Route::prefix('commercial')->group(function () {
+});
+
+Route::prefix('inventory')->group(function () {
+});
+
+Route::prefix('finance')->group(function () {
+});
+

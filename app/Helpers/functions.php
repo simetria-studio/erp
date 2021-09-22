@@ -119,9 +119,7 @@ if(!function_exists('getPosition')){
                 $main_accesses = MainAccess::where('position', '>=', $position)->get();
 
                 foreach($main_accesses as $main_access){
-                    if($main_access->id !== $id){
-                        MainAccess::find($main_access->id)->update(['position' => ($position+1)]);
-                    }
+                    MainAccess::find($main_access->id)->update(['position' => ($position+1)]);
                 }
             break;
             case 'module':

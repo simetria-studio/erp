@@ -118,25 +118,33 @@ if(!function_exists('getPosition')){
             case 'main_access':
                 $main_accesses = MainAccess::where('position', '>=', $position)->get();
 
+                $new_position = $position;
                 foreach($main_accesses as $main_access){
-                    MainAccess::find($main_access->id)->update(['position' => ($position+1)]);
+                    if($main_access->id !== $id){
+                        $new_position += 1;
+                        MainAccess::find($main_access->id)->update(['position' => $new_position]);
+                    }
                 }
             break;
             case 'module':
                 $modules = Module::where('main_access_id', $parent)->where('position', '>=', $position)->get();
 
+                $new_position = $position;
                 foreach($modules as $module){
                     if($module->id !== $id){
-                        Module::find($module->id)->update(['position' => ($position+1)]);
+                        $new_position += 1;
+                        Module::find($module->id)->update(['position' => $new_position]);
                     }
                 }
             break;
             case 'program':
                 $programs = Program::where('module_id', $parent)->where('position', '>=', $position)->get();
 
+                $new_position = $position;
                 foreach($programs as $program){
                     if($program->id !== $id){
-                        Program::find($program->id)->update(['position' => ($position+1)]);
+                        $new_position += 1;
+                        Program::find($program->id)->update(['position' => $new_position]);
                     }
                 }
             break;

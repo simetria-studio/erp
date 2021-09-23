@@ -130,14 +130,25 @@
                                                             <td class="text-light">{{$program->program_name}}</td>
                                                             <td class="text-light">
                                                                 <span><b>Get:</b> {{$program->method_get == 'true' ? 'view_'.$program->function_name : ''}}</span><br>
+                                                                <span><b>View-Create:</b> {{$program->view_create == 'true' ? 'create_'.$program->function_name : ''}}</span><br>
                                                                 <span><b>Post:</b> {{$program->method_post == 'true' ? 'store_'.$program->function_name : ''}}</span><br>
+                                                                <span><b>View-Edit:</b> {{$program->view_edit == 'true' ? 'edit_'.$program->function_name : ''}}</span><br>
                                                                 <span><b>Put:</b> {{$program->method_put == 'true' ? 'update_'.$program->function_name : ''}}</span><br>
                                                                 <span><b>Delete:</b> {{$program->method_delete == 'true' ? 'destroy_'.$program->function_name : ''}}</span><br>
                                                             </td>
                                                             <td class="text-light">{{$program->program_route}}</td>
-                                                            <td class="text-light">{{$program->route_name}}</td>
+                                                            <td class="text-light">
+                                                                @php
+                                                                    $program_explode = explode('/', $program->program_route);
+                                                                    $remove_program_parameter = $program_explode[count($program_explode) - 1];
+                                                                @endphp
+                                                                <span><b>ANY:</b> {{$program->route_name}}</span><br>
+                                                                @if ($program->view_create == 'true') <span><b>viewCreate:</b> {{$program->route_name}}.create</span><br> @endif
+                                                                @if ($program->view_edit == 'true') <span><b>ViewEdit:</b> {{$program->route_name}}.edit</span> @endif
+                                                            </td>
                                                             <td class="text-light">{{$program->controller_name}}</td>
                                                             <td class="text-light">
+                                                                <span><b>Get:</b> {{$program->method_get == 'true' ? 'SIM' : 'NÃO'}}</span><br>
                                                                 <span><b>Get:</b> {{$program->method_get == 'true' ? 'SIM' : 'NÃO'}}</span><br>
                                                                 <span><b>Post:</b> {{$program->method_post == 'true' ? 'SIM' : 'NÃO'}}</span><br>
                                                                 <span><b>Put:</b> {{$program->method_put == 'true' ? 'SIM' : 'NÃO'}}</span><br>
@@ -373,6 +384,28 @@
                                 <input type="text" name="program_route" class="form-control" placeholder="Rota do Programa">
                             </div>
                             <div class="form-group col-12">
+                                <div class="custom-control custom-switch custom-switch-icon custom-switch-color custom-control-inline">
+                                    <div class="custom-switch-inner">
+                                        <p class="mb-0"> View para Criação </p>
+                                        <input type="checkbox" name="view_create" class="custom-control-input bg-success" id="view_create_check">
+                                        <label class="custom-control-label" for="view_create_check">
+                                            <span class="switch-icon-left"><i class="fa fa-check"></i></span>
+                                            <span class="switch-icon-right"><i class="fa fa-check"></i></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="custom-control custom-switch custom-switch-icon custom-switch-color custom-control-inline">
+                                    <div class="custom-switch-inner">
+                                        <p class="mb-0"> View para Edição </p>
+                                        <input type="checkbox" name="view_edit" class="custom-control-input bg-success" id="view_edit_check">
+                                        <label class="custom-control-label" for="view_edit_check">
+                                            <span class="switch-icon-left"><i class="fa fa-check"></i></span>
+                                            <span class="switch-icon-right"><i class="fa fa-check"></i></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-12">
                                 <label for="route_name">Nome da Rota</label>
                                 <input type="text" name="route_name" class="form-control" placeholder="Nome da Rota do Programa">
                             </div>
@@ -470,6 +503,28 @@
                             <div class="form-group col-12">
                                 <label for="program_route">Rota do Programa</label>
                                 <input type="text" name="program_route" class="form-control" placeholder="Rota do Programa">
+                            </div>
+                            <div class="form-group col-12">
+                                <div class="custom-control custom-switch custom-switch-icon custom-switch-color custom-control-inline">
+                                    <div class="custom-switch-inner">
+                                        <p class="mb-0"> View para Criação </p>
+                                        <input type="checkbox" name="view_create" class="custom-control-input bg-success" id="view_create_check-edit" checked="">
+                                        <label class="custom-control-label" for="view_create_check-edit">
+                                            <span class="switch-icon-left"><i class="fa fa-check"></i></span>
+                                            <span class="switch-icon-right"><i class="fa fa-check"></i></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="custom-control custom-switch custom-switch-icon custom-switch-color custom-control-inline">
+                                    <div class="custom-switch-inner">
+                                        <p class="mb-0"> View para Edição </p>
+                                        <input type="checkbox" name="view_edit" class="custom-control-input bg-success" id="view_edit_check-edit" checked="">
+                                        <label class="custom-control-label" for="view_edit_check-edit">
+                                            <span class="switch-icon-left"><i class="fa fa-check"></i></span>
+                                            <span class="switch-icon-right"><i class="fa fa-check"></i></span>
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
                             <div class="form-group col-12">
                                 <label for="route_name">Nome da Rota</label>

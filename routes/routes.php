@@ -39,25 +39,15 @@ Route::prefix('registration')->group(function () {
 		Route::put('services/registration', [App\Http\Controllers\Registration\Stock\ProductController::class, 'update_service'])->name('registration.stock.services');
 		Route::delete('services/registration', [App\Http\Controllers\Registration\Stock\ProductController::class, 'destroy_service'])->name('registration.stock.services');
 
-		Route::get('product_gf/registration', [App\Http\Controllers\Registration\Stock\ProductGFController::class, 'view_product_group_family'])->name('registration.stock.product_gf');
-		Route::post('product_gf/registration', [App\Http\Controllers\Registration\Stock\ProductGFController::class, 'store_product_group_family'])->name('registration.stock.product_gf');
-		Route::put('product_gf/registration', [App\Http\Controllers\Registration\Stock\ProductGFController::class, 'update_product_group_family'])->name('registration.stock.product_gf');
-		Route::delete('product_gf/registration', [App\Http\Controllers\Registration\Stock\ProductGFController::class, 'destroy_product_group_family'])->name('registration.stock.product_gf');
-
-		Route::get('manufacturer/registration', [App\Http\Controllers\Registration\Stock\ManufacturerController::class, 'view_manufacturer'])->name('registration.stock.manufacturer');
-		Route::post('manufacturer/registration', [App\Http\Controllers\Registration\Stock\ManufacturerController::class, 'store_manufacturer'])->name('registration.stock.manufacturer');
-		Route::put('manufacturer/registration', [App\Http\Controllers\Registration\Stock\ManufacturerController::class, 'update_manufacturer'])->name('registration.stock.manufacturer');
-		Route::delete('manufacturer/registration', [App\Http\Controllers\Registration\Stock\ManufacturerController::class, 'destroy_manufacturer'])->name('registration.stock.manufacturer');
+		Route::get('product_group/registration', [App\Http\Controllers\Registration\Stock\ProductGroupController::class, 'view_product_group'])->name('registration.stock.product_group');
+		Route::post('product_group/registration', [App\Http\Controllers\Registration\Stock\ProductGroupController::class, 'store_product_group'])->name('registration.stock.product_group');
+		Route::put('product_group/registration', [App\Http\Controllers\Registration\Stock\ProductGroupController::class, 'update_product_group'])->name('registration.stock.product_group');
+		Route::delete('product_group/registration', [App\Http\Controllers\Registration\Stock\ProductGroupController::class, 'destroy_product_group'])->name('registration.stock.product_group');
 
 		Route::get('deposited/registration', [App\Http\Controllers\Registration\Stock\DepositedController::class, 'view_deposited'])->name('registration.stock.deposited');
 		Route::post('deposited/registration', [App\Http\Controllers\Registration\Stock\DepositedController::class, 'store_deposited'])->name('registration.stock.deposited');
 		Route::put('deposited/registration', [App\Http\Controllers\Registration\Stock\DepositedController::class, 'update_deposited'])->name('registration.stock.deposited');
 		Route::delete('deposited/registration', [App\Http\Controllers\Registration\Stock\DepositedController::class, 'destroy_deposited'])->name('registration.stock.deposited');
-
-		Route::get('type_sale/registration', [App\Http\Controllers\Registration\Stock\TypeSaleController::class, 'view_type_sale'])->name('registration.stock.type_sale');
-		Route::post('type_sale/registration', [App\Http\Controllers\Registration\Stock\TypeSaleController::class, 'store_type_sale'])->name('registration.stock.type_sale');
-		Route::put('type_sale/registration', [App\Http\Controllers\Registration\Stock\TypeSaleController::class, 'update_type_sale'])->name('registration.stock.type_sale');
-		Route::delete('type_sale/registration', [App\Http\Controllers\Registration\Stock\TypeSaleController::class, 'destroy_type_sale'])->name('registration.stock.type_sale');
 
 	});
 

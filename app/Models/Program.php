@@ -15,6 +15,8 @@ class Program extends Model
         'program_name',
         'function_name',
         'program_route',
+        'view_create',
+        'view_edit',
         'route_name',
         'controller_name',
         'position',

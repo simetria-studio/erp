@@ -83,6 +83,8 @@ class AdminController extends Controller
                 $program['program_name'] = mb_convert_case($request->program_name, MB_CASE_TITLE);
                 $program['function_name'] = $request->function_name;
                 $program['program_route'] = mb_convert_case($request->program_route, MB_CASE_LOWER);
+                $program['view_create'] = mb_convert_case($request->view_create, MB_CASE_LOWER);
+                $program['view_edit'] = mb_convert_case($request->view_edit, MB_CASE_LOWER);
                 $program['route_name'] = $request->route_name;
                 $program['controller_name'] = $request->controller_name;
                 $program['position'] = $request->position;
@@ -94,6 +96,9 @@ class AdminController extends Controller
                 $program = Program::create($program);
                 getPosition($request->position, $program->id, $request->module_id, 'program');
                 geraRotas();
+
+                $program_explode = explode('/', $program->program_route);
+                $remove_program_parameter = $program_explode[count($program_explode) - 1];
 
                 return response()->json([
                     'table' => '<tr class="tr-id-'.$program->id.'">
@@ -108,7 +113,11 @@ class AdminController extends Controller
                             <span><b>Delete:</b> '.($program->method_delete == 'true' ? "destroy_".$program->function_name : "").'</span><br>
                         </td>
                         <td class="text-light">'.$program->program_route.'</td>
-                        <td class="text-light">'.$program->route_name.'</td>
+                        <td class="text-light">
+                        <b>ANY:</b>'.$program->route_name.'<br>
+                            '.($program->view_create == 'true' ? '<span><b>viewCreate:</b>'.$program->route_name.'create</span><br>' : '').'
+                            '.($program->view_edit == 'true' ? '<span><b>ViewEdit:</b>'. $program->route_name.'edit</span><br>' : '').'
+                        </td>
                         <td class="text-light">'.$program->controller_name.'</td>
                         <td class="text-light">
                             <span><b>Get:</b> '.($program->method_get == 'true' ? "SIM" : "NÃO").'</span><br>
@@ -194,6 +203,8 @@ class AdminController extends Controller
                 $program['program_name'] = mb_convert_case($request->program_name, MB_CASE_TITLE);
                 $program['function_name'] = $request->function_name;
                 $program['program_route'] = mb_convert_case($request->program_route, MB_CASE_LOWER);
+                $program['view_create'] = mb_convert_case($request->view_create, MB_CASE_LOWER);
+                $program['view_edit'] = mb_convert_case($request->view_edit, MB_CASE_LOWER);
                 $program['route_name'] = $request->route_name;
                 $program['controller_name'] = $request->controller_name;
                 $program['position'] = $request->position;
@@ -207,6 +218,9 @@ class AdminController extends Controller
                 $program = $program_fresh->fresh();
                 getPosition($request->position, $program->id, $request->module_id, 'program');
                 geraRotas();
+
+                $program_explode = explode('/', $program->program_route);
+                $remove_program_parameter = $program_explode[count($program_explode) - 1];
 
                 return response()->json([
                     'tb_id' => $program->id,
@@ -222,7 +236,10 @@ class AdminController extends Controller
                             <span><b>Delete:</b> '.($program->method_delete == 'true' ? "destroy_".$program->function_name : "").'</span><br>
                         </td>
                         <td class="text-light">'.$program->program_route.'</td>
-                        <td class="text-light">'.$program->route_name.'</td>
+                        <td class="text-light">
+                            <b>ANY:</b>'.$program->route_name.'<br>
+                            '.($program->view_create == 'true' ? '<span><b>viewCreate:</b>'.$program->route_name.'create</span><br>' : '').'
+                            '.($program->view_edit == 'true' ? '<span><b>ViewEdit:</b>'. $program->route_name.'edit</span><br>' : '').'</td>
                         <td class="text-light">'.$program->controller_name.'</td>
                         <td class="text-light">
                             <span><b>Get:</b> '.($program->method_get == 'true' ? "SIM" : "NÃO").'</span><br>

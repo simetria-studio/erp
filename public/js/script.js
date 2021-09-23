@@ -25,7 +25,7 @@ $(document).ready(function(){
 
     $('.select2').select2();
     $(".table").DataTable({
-        "responsive": true,
+        "responsive": false,
         "autoWidth": false,
         "language": {
             "url": '/plugin/datatables-language/pt-br.json',

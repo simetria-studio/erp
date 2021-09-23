@@ -97,9 +97,6 @@ class AdminController extends Controller
                 getPosition($request->position, $program->id, $request->module_id, 'program');
                 geraRotas();
 
-                $program_explode = explode('/', $program->program_route);
-                $remove_program_parameter = $program_explode[count($program_explode) - 1];
-
                 return response()->json([
                     'table' => '<tr class="tr-id-'.$program->id.'">
                         <td class="text-light">#'.$program->id.'</td>
@@ -112,9 +109,13 @@ class AdminController extends Controller
                             <span><b>Put:</b> '.($program->method_put == 'true' ? "update_".$program->function_name : "").'</span><br>
                             <span><b>Delete:</b> '.($program->method_delete == 'true' ? "destroy_".$program->function_name : "").'</span><br>
                         </td>
-                        <td class="text-light">'.$program->program_route.'</td>
                         <td class="text-light">
-                        <b>ANY:</b>'.$program->route_name.'<br>
+                            <b>ANY:</b>'.$program->program_route.'<br>
+                            '.($program->view_create == 'true' ? '<span><b>viewCreate:</b>'.(str_replace(["/{id?}", "/{user_id?}"], '', $program->program_route)).'create</span><br>' : '').'
+                            '.($program->view_edit == 'true' ? '<span><b>ViewEdit:</b>'. (str_replace(["/{id?}", "/{user_id?}"], '', $program->program_route)).'edit</span><br>' : '').'
+                        </td>
+                        <td class="text-light">
+                            <b>ANY:</b>'.$program->route_name.'<br>
                             '.($program->view_create == 'true' ? '<span><b>viewCreate:</b>'.$program->route_name.'create</span><br>' : '').'
                             '.($program->view_edit == 'true' ? '<span><b>ViewEdit:</b>'. $program->route_name.'edit</span><br>' : '').'
                         </td>
@@ -235,11 +236,14 @@ class AdminController extends Controller
                             <span><b>Put:</b> '.($program->method_put == 'true' ? "update_".$program->function_name : "").'</span><br>
                             <span><b>Delete:</b> '.($program->method_delete == 'true' ? "destroy_".$program->function_name : "").'</span><br>
                         </td>
-                        <td class="text-light">'.$program->program_route.'</td>
+                        <td class="text-light">
+                            <b>ANY:</b>'.$program->program_route.'<br>
+                            '.($program->view_create == 'true' ? '<span><b>viewCreate:</b>'.(str_replace(["/{id?}", "/{user_id?}"], '', $program->program_route)).'/create</span><br>' : '').'
+                            '.($program->view_edit == 'true' ? '<span><b>ViewEdit:</b>'. (str_replace(["/{id?}", "/{user_id?}"], '', $program->program_route)).'/edit</span><br>' : '').'</td>
                         <td class="text-light">
                             <b>ANY:</b>'.$program->route_name.'<br>
-                            '.($program->view_create == 'true' ? '<span><b>viewCreate:</b>'.$program->route_name.'create</span><br>' : '').'
-                            '.($program->view_edit == 'true' ? '<span><b>ViewEdit:</b>'. $program->route_name.'edit</span><br>' : '').'</td>
+                            '.($program->view_create == 'true' ? '<span><b>viewCreate:</b>'.$program->route_name.'.create</span><br>' : '').'
+                            '.($program->view_edit == 'true' ? '<span><b>ViewEdit:</b>'. $program->route_name.'.edit</span><br>' : '').'</td>
                         <td class="text-light">'.$program->controller_name.'</td>
                         <td class="text-light">
                             <span><b>Get:</b> '.($program->method_get == 'true' ? "SIM" : "NÃO").'</span><br>

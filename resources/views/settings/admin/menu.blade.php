@@ -136,12 +136,12 @@
                                                                 <span><b>Put:</b> {{$program->method_put == 'true' ? 'update_'.$program->function_name : ''}}</span><br>
                                                                 <span><b>Delete:</b> {{$program->method_delete == 'true' ? 'destroy_'.$program->function_name : ''}}</span><br>
                                                             </td>
-                                                            <td class="text-light">{{$program->program_route}}</td>
                                                             <td class="text-light">
-                                                                @php
-                                                                    $program_explode = explode('/', $program->program_route);
-                                                                    $remove_program_parameter = $program_explode[count($program_explode) - 1];
-                                                                @endphp
+                                                                <span><b>ANY:</b>{{$program->program_route}}</span>
+                                                                @if ($program->view_create == 'true') <span><b>viewCreate:</b> {{str_replace(["/{id?}", "/{user_id?}"], '', $program->program_route)}}/create</span><br> @endif
+                                                                @if ($program->view_edit == 'true') <span><b>ViewEdit:</b> {{str_replace(["/{id?}", "/{user_id?}"], '', $program->program_route)}}/edit</span> @endif
+                                                            </td>
+                                                            <td class="text-light">
                                                                 <span><b>ANY:</b> {{$program->route_name}}</span><br>
                                                                 @if ($program->view_create == 'true') <span><b>viewCreate:</b> {{$program->route_name}}.create</span><br> @endif
                                                                 @if ($program->view_edit == 'true') <span><b>ViewEdit:</b> {{$program->route_name}}.edit</span> @endif

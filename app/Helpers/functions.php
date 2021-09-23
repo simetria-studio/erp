@@ -93,13 +93,10 @@ if(!function_exists('geraRotas')){
                         $rotas .= "\tRoute::prefix('$module->module_route')->group(function () {\n";
                             foreach(Program::all() as $program){
                                 if($program->module_id == session()->get('module_id')){
-                                    $program_explode = explode('/', $program->program_route);
-                                    $remove_program_parameter = $program_explode[count($program_explode) - 1];
-
                                     if($program->method_get == 'true') $rotas .= "\t\tRoute::get('$program->program_route', [App\\Http\\Controllers\\$program->controller_name::class, 'view_$program->function_name'])->name('$program->route_name');\n";
-                                    if($program->view_create == 'true') $rotas .= "\t\tRoute::get('".(str_replace($remove_program_parameter, '', $program->program_name))."create', [App\\Http\\Controllers\\$program->controller_name::class, 'create_$program->function_name'])->name('$program->route_name.create');\n";
+                                    if($program->view_create == 'true') $rotas .= "\t\tRoute::get('".(str_replace(["/{id?}", "/{user_id?}"], '', $program->program_route))."/create', [App\\Http\\Controllers\\$program->controller_name::class, 'create_$program->function_name'])->name('$program->route_name.create');\n";
                                     if($program->method_post == 'true') $rotas .= "\t\tRoute::post('$program->program_route', [App\\Http\\Controllers\\$program->controller_name::class, 'store_$program->function_name'])->name('$program->route_name');\n";
-                                    if($program->view_edit == 'true') $rotas .= "\t\tRoute::get('".(str_replace($remove_program_parameter, '', $program->program_name))."edit/{id}', [App\\Http\\Controllers\\$program->controller_name::class, 'store_$program->function_name'])->name('$program->route_name.edit');\n";
+                                    if($program->view_edit == 'true') $rotas .= "\t\tRoute::get('".(str_replace(["/{id?}", "/{user_id?}"], '', $program->program_route))."/edit/{id}', [App\\Http\\Controllers\\$program->controller_name::class, 'store_$program->function_name'])->name('$program->route_name.edit');\n";
                                     if($program->method_put == 'true') $rotas .= "\t\tRoute::put('$program->program_route', [App\\Http\\Controllers\\$program->controller_name::class, 'update_$program->function_name'])->name('$program->route_name');\n";
                                     if($program->method_delete == 'true') $rotas .= "\t\tRoute::delete('$program->program_route', [App\\Http\\Controllers\\$program->controller_name::class, 'destroy_$program->function_name'])->name('$program->route_name');\n\n";
                                 }

@@ -15,6 +15,8 @@ class CreateDepositedsTable extends Migration
     {
         Schema::create('depositeds', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('status')->default(1);
             $table->timestamps();
         });
     }

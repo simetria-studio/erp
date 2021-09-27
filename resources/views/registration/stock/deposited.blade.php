@@ -27,30 +27,34 @@
                                     <thead>
                                         <tr>
                                             <th>Codigo Deposito</th>
+                                            <th>Empresa</th>
                                             <th>Nome Deposito</th>
                                             <th>Status Deposito</th>
                                             <th>Ações</th>
                                         </tr>
                                     </thead>
                                     <tbody class="Deposito">
-                                        @foreach ($depositeds as $deposited)
-                                            <tr class="tr-id-{{$deposited->id}}">
-                                                <td>{{$deposited->id}}</td>
-                                                <td>{{$deposited->name}}</td>
-                                                <td>
-                                                    @if ($deposited->status == 1)
-                                                        <span class="text-success">Ativo</span>
-                                                    @else
-                                                        <span class="text-danger">Inativo</span>
-                                                    @endif
-                                                </td>
-                                                <td>
-                                                    <div class="btn-group">
-                                                        <button type="button" class="btn btn-danger btn-apagar" data-tbody=".Deposito" data-dados="{{json_encode(['id' => $deposited->id])}}" data-route="{{route('registration.stock.deposited')}}"><i class="ri-delete-bin-5-line"></i></button>
-                                                        <button type="button" class="btn btn-info btn-editar" data-toggle="modal" data-target="#editarDeposito" data-dados={{json_encode($deposited)}}><i class="ri-edit-box-line"></i></button>
-                                                    </div>
-                                                </td>
-                                            </tr>
+                                        @foreach ($companies as $company)
+                                            @foreach ($company->depositeds as $deposited)
+                                                <tr class="tr-id-{{$deposited->id}}">
+                                                    <td>{{$deposited->id}}</td>
+                                                    <td>{{$deposited->company->corporate_name}}</td>
+                                                    <td>{{$deposited->name}}</td>
+                                                    <td>
+                                                        @if ($deposited->status == 1)
+                                                            <span class="text-success">Ativo</span>
+                                                        @else
+                                                            <span class="text-danger">Inativo</span>
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        <div class="btn-group">
+                                                            <button type="button" class="btn btn-danger btn-apagar" data-tbody=".Deposito" data-dados="{{json_encode(['id' => $deposited->id])}}" data-route="{{route('registration.stock.deposited')}}"><i class="ri-delete-bin-5-line"></i></button>
+                                                            <button type="button" class="btn btn-info btn-editar" data-toggle="modal" data-target="#editarDeposito" data-dados="{{json_encode($deposited)}}"><i class="ri-edit-box-line"></i></button>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
                                         @endforeach
                                     </tbody>
                                 </table>
@@ -75,7 +79,16 @@
                     <div class="modal-body">
                         <div class="form-row">
                             <div class="form-group col-12">
-                                <label for="name">Nome do Deposito</label>
+                                <label for="company_id">Empresa <span class="text-danger">*</span></label>
+                                <select name="company_id" class="form-control">
+                                    <option value="">Selecione uma Opção</option>
+                                    @foreach ($companies as $company)
+                                        <option value="{{$company->id}}">{{$company->corporate_name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group col-12">
+                                <label for="name">Nome do Deposito <span class="text-danger">*</span></label>
                                 <input type="text" name="name" class="form-control" placeholder="Nome do Deposito">
                             </div>
                         </div>
@@ -101,6 +114,15 @@
                     </div>
                     <div class="modal-body">
                         <div class="form-row">
+                            <div class="form-group col-12">
+                                <label for="company_id">Empresa <span class="text-danger">*</span></label>
+                                <select name="company_id" class="form-control">
+                                    <option value="">Selecione uma Opção</option>
+                                    @foreach ($companies as $company)
+                                        <option value="{{$company->id}}">{{$company->corporate_name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                             <div class="form-group col-12">
                                 <label for="name">Nome do Deposito</label>
                                 <input type="text" name="name" class="form-control" placeholder="Nome do Deposito">

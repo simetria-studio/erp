@@ -15,6 +15,8 @@ use App\Http\Controllers\PainelController;
 |
 */
 
+Route::get('cep/{cep}', [PainelController::class, 'cepConsulta'])->name('cep');
+
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/', [PainelController::class, 'dashboard'])->name('dashboard');
 

@@ -30,6 +30,10 @@
         <link rel="stylesheet" href="{{asset('plugin/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
         <link rel="stylesheet" href="{{asset('plugin/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
 
+
+        <!-- DateRangerPicker -->
+        <link rel="stylesheet" href="{{asset('plugin/daterangepicker/daterangepicker.css')}}">
+
         {{-- Custom --}}
         <link rel="stylesheet" href="{{asset('css/custom.min.css')}}">
     </head>
@@ -316,6 +320,12 @@
         <script src="{{asset('plugin/sweetalert2/sweetalert2.all.min.js')}}"></script>
         <script src="{{asset('plugin/mask.jquery.js')}}"></script>
         <script src="{{asset('plugin/valida_cpf_cnpj.js')}}"></script>
+        
+        <!-- Moment -->
+        <script src="{{asset('plugin/moment/moment.min.js')}}"></script>
+        <!-- DateRangerPicker -->
+        <script src="{{asset('plugin/daterangepicker/daterangepicker.js')}}"></script>
+
         <script src="{{asset('js/script.min.js')}}"></script>
 
         <!-- Appear JavaScript -->

@@ -10,7 +10,13 @@ class Deposited extends Model
     use HasFactory;
 
     protected $fillable = [
+        'company_id',
         'name',
         'status',
     ];
+
+    public function company()
+    {
+        return $this->belongsTo(Company::class, 'company_id');
+    }
 }

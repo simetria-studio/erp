@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Registration\Stock;
 
 use App\Models\Deposited;
+use App\Models\Company;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -11,18 +12,21 @@ class DepositedController extends Controller
 {
     public function view_deposited()
     {
-        $depositeds = Deposited::all();
-        return view('registration.stock.deposited', compact('depositeds'));
+        $companies = Company::where('user_id', auth()->user()->id)->with('depositeds')->get();
+        return view('registration.stock.deposited', compact('companies'));
     }
 
     public function store_deposited(Request $request)
     {
+        $deposited['company_id'] = mb_convert_case($request->company_id, MB_CASE_UPPER);
         $deposited['name'] = mb_convert_case($request->name, MB_CASE_UPPER);
         $deposited = Deposited::create($deposited);
+        $deposited = Deposited::with('company')->find($deposited->id);
 
         return response()->json([
             'table' => '<tr class="tr-id-'.$deposited->id.'">
                 <td>'.$deposited->id.'</td>
+                <td>'.$deposited->company->corporate_name.'</td>
                 <td>'.$deposited->name.'</td>
                 <td>Ativo</td>
                 <td>
@@ -37,8 +41,9 @@ class DepositedController extends Controller
 
     public function update_deposited(Request $request)
     {
+        $deposited_up['company_id'] = mb_convert_case($request->company_id, MB_CASE_UPPER);
         $deposited_up['name'] = mb_convert_case($request->name, MB_CASE_UPPER);
-        $deposited = Deposited::find($request->id);
+        $deposited = Deposited::with('company')->find($request->id);
         $deposited->update($deposited_up);;
         $deposited->fresh();
 
@@ -46,6 +51,7 @@ class DepositedController extends Controller
             'tb_id' => $deposited->id,
             'tb_up' => '
                 <td>'.$deposited->id.'</td>
+                <td>'.$deposited->company->corporate_name.'</td>
                 <td>'.$deposited->name.'</td>
                 <td>Ativo</td>
                 <td>

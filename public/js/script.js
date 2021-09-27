@@ -5,6 +5,49 @@ $(document).ready(function(){
         }
     });
 
+    Object.is = function(obj) {
+        var r = (typeof obj) == 'object' ? true : false;
+        return r;
+    };
+
+    $('.phone1').mask('(41) 9999-9999');
+    $('.phone2').mask('(41) 99999-9999');
+
+    $('[name="zip_code"]').mask('00000-000');
+    $('[name="zip_code"]').on('keyup blur', function(){
+        if($(this).val().length == 9){
+            $.ajax({
+                url: '/cep/'+$(this).val(),
+                type: 'GET',
+                success: (data) => {
+                    $('[name="address"]').val(data.logradouro);
+                    if(data.logradouro) $('[name="address"]').prop('readonly', true);
+                    $('[name="address2"]').val(data.bairro);
+                    if(data.bairro) $('[name="address2"]').prop('readonly', true);
+                    $('[name="state"]').val(data.uf);
+                    if(data.uf) $('[name="state"]').prop('readonly', true);
+                    $('[name="city"]').val(data.localidade);
+                    if(data.localidade) $('[name="city"]').prop('readonly', true);
+
+                    $('[name="number"]').focus();
+                }
+            });
+        }
+    });
+
+    $('.date-mask').mask('99/99/9999');
+    $('.date-mask').daterangepicker({
+        singleDatePicker: true,
+        showDropdowns: true,
+        locale: {
+            format: 'DD/MM/YYYY',
+            daysOfWeek: ['dom','seg','ter','qua','qui','sex','sab'],
+            monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','outubro','Novembro','Dezembro'],
+            applyLabel: 'Aplicar',
+            cancelLabel: 'Cancelar'
+        }
+    });
+
     // $('form').on('submit', function(e){
     //     e.preventDefault();
     //     $(this).find('.btn-modal-salvar').trigger('click');
@@ -123,6 +166,10 @@ $(document).ready(function(){
         var target = $(this).data('target'); // qual modal ta sendo acessado
         var dados = $(this).data('dados'); // dados que serão passados aos campos
 
+        if(!Object.is(dados)){
+            console.log(JSON.parse(dados));
+        }
+
         // Fazemos uma leitura dosa campos
         $.each(dados, (key, value) => {
             $(target).find('[name="'+key+'"').val(value); // os campos name são iguais aos das colunas vidna do banco
@@ -174,5 +221,73 @@ $(document).ready(function(){
                         });
             }
         });
+    });
+
+    // Opções do fornecedor
+    $(document).on('change', '#type_person', function(){
+        $('.document-number, .D-J, .D-F, .tax-regime-code, .ie-exempt, .municipal-registration, .R-G, .issuing-agency').addClass('d-none');
+        switch($(this).val()){
+            case 'J':
+                $('.document-number').removeClass('d-none').find('.D-J').removeClass('d-none');
+                $('.tax-regime-code').removeClass('d-none');
+                $('.ie-exempt').removeClass('d-none');
+                $('.municipal-registration').removeClass('d-none');
+                $('#taxpayer').val('1');
+            break;
+            case 'F':
+                $('.document-number').removeClass('d-none').find('.D-F').removeClass('d-none');
+                $('.R-G').removeClass('d-none');
+                $('.issuing-agency').removeClass('d-none');
+                $('#taxpayer').val('9');
+            break;
+        }
+    });
+    // --------------------
+    $(document).on('change', '#taxpayer', function() {
+        $('.state-registration input').prop('disabled', false);
+        $('.ie-exempt input').prop('checked', false);
+        switch($(this).val()){
+            case '2':
+                $('.state-registration input').prop('disabled', true);
+                $('.ie-exempt input').prop('checked', true);
+            break;
+        }
+    });
+    // --------------------
+    $(document).on('change', '#ie_exempt_check', function() {
+        $('.state-registration input').prop('disabled', false);
+        if($(this).is(':checked')) {
+            $('.state-registration input').prop('disabled', true);
+        }
+    });
+
+    // Para adiconar contato no fornecedor ou cliente
+    $(document).on('click', '.btn-add-contact', function(){
+        var position = (parseInt($('.position').val()) || 0) + 1;
+        $('.position').val(position);
+
+        $('.contatos').append(
+            '<div class="row">'+
+                '<div class="form-group col-12 col-md-4">'+
+                    '<label for="contact">Nome do Contato</label>'+
+                    '<input type="text" name="contact['+position+'][contact_name]" class="form-control" placeholder="Nome do Contato">'+
+                '</div>'+
+                '<div class="form-group col-12 col-md-4">'+
+                    '<label for="contact">Telefone</label>'+
+                    '<input type="text" name="contact['+position+'][phone1]" class="form-control phone1" placeholder="Telefone">'+
+                '</div>'+
+                '<div class="form-group col-12 col-md-4">'+
+                    '<label for="contact">Celular</label>'+
+                    '<input type="text" name="contact['+position+'][phone2]" class="form-control phone2" placeholder="Celular">'+
+                '</div>'+
+                '<div class="form-group col-12 col-md-4">'+
+                    '<label for="contact">E-Mail</label>'+
+                    '<input type="text" name="contact['+position+'][contact_email]" class="form-control" placeholder="E-Mail">'+
+                '</div>'+
+            '</div>'
+        );
+
+        $('.phone1').mask('(41) 9999-9999');
+        $('.phone2').mask('(41) 99999-9999');
     });
 });

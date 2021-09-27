@@ -33,4 +33,13 @@ class Company extends Model
         'economic_activity',
         'active',
     ];
+
+    public function depositeds()
+    {
+        return $this->hasMany(Deposited::class, 'company_id');
+    }
+    public function productsGroups()
+    {
+        return $this->hasMany(ProductGroup::class, 'company_id');
+    }
 }

@@ -261,6 +261,34 @@ $(document).ready(function(){
         }
     });
 
+    // Opções do produto
+    $(document).on('change', '#product_type', function(){
+        if($(this).val() == 'P') {
+            $('.caracteristicas').removeClass('d-none');
+            $('#estoque-tab-justify').parent().removeClass('d-none');
+        }
+        if($(this).val() == 'S') {
+            $('.caracteristicas').addClass('d-none');
+            $('#estoque-tab-justify').parent().addClass('d-none');
+        }
+    });
+    $(document).on('change', '#sales_format', function(){
+        if($(this).val() == 'S') {
+            $('.caracteristicas').removeClass('d-none');
+            $('#variacoes-tab-justify').parent().addClass('d-none');
+        }
+        if($(this).val() == 'CV') {
+            $('.caracteristicas').addClass('d-none');
+            $('#variacoes-tab-justify').parent().removeClass('d-none');
+        }
+    });
+    $(document).on('click', '.btn-add-fornecedor', function() {
+        var opt = $('#client_supplier option:selected');
+        opt.remove();
+
+        console.log(opt.data('dados'));
+    });
+
     // Para adiconar contato no fornecedor ou cliente
     $(document).on('click', '.btn-add-contact', function(){
         var position = (parseInt($('.position').val()) || 0) + 1;

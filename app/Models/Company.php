@@ -34,9 +34,9 @@ class Company extends Model
         'active',
     ];
 
-    public function depositeds()
+    public function deposits()
     {
-        return $this->hasMany(Deposited::class, 'company_id');
+        return $this->hasMany(Deposit::class, 'company_id');
     }
     public function productsGroups()
     {

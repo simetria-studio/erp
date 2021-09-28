@@ -35,13 +35,13 @@
                                     </thead>
                                     <tbody class="Deposito">
                                         @foreach ($companies as $company)
-                                            @foreach ($company->depositeds as $deposited)
-                                                <tr class="tr-id-{{$deposited->id}}">
-                                                    <td>{{$deposited->id}}</td>
-                                                    <td>{{$deposited->company->corporate_name}}</td>
-                                                    <td>{{$deposited->name}}</td>
+                                            @foreach ($company->deposits as $deposit)
+                                                <tr class="tr-id-{{$deposit->id}}">
+                                                    <td>{{$deposit->id}}</td>
+                                                    <td>{{$deposit->company->corporate_name}}</td>
+                                                    <td>{{$deposit->name}}</td>
                                                     <td>
-                                                        @if ($deposited->status == 1)
+                                                        @if ($deposit->status == 1)
                                                             <span class="text-success">Ativo</span>
                                                         @else
                                                             <span class="text-danger">Inativo</span>
@@ -49,8 +49,8 @@
                                                     </td>
                                                     <td>
                                                         <div class="btn-group">
-                                                            <button type="button" class="btn btn-danger btn-apagar" data-tbody=".Deposito" data-dados="{{json_encode(['id' => $deposited->id])}}" data-route="{{route('registration.stock.deposited')}}"><i class="ri-delete-bin-5-line"></i></button>
-                                                            <button type="button" class="btn btn-info btn-editar" data-toggle="modal" data-target="#editarDeposito" data-dados="{{json_encode($deposited)}}"><i class="ri-edit-box-line"></i></button>
+                                                            <button type="button" class="btn btn-danger btn-apagar" data-tbody=".Deposito" data-dados="{{json_encode(['id' => $deposit->id])}}" data-route="{{route('registration.stock.deposit')}}"><i class="ri-delete-bin-5-line"></i></button>
+                                                            <button type="button" class="btn btn-info btn-editar" data-toggle="modal" data-target="#editarDeposito" data-dados="{{json_encode($deposit)}}"><i class="ri-edit-box-line"></i></button>
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -95,7 +95,7 @@
                     </div>
                     <div class="modal-footer justify-content-between">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="ri-close-line"></i> Fechar</button>
-                        <button type="button" class="btn btn-primary btn-modal-salvar" data-tbody=".Deposito" data-update_table="S" data-save_target="#postNovoDeposito" data-save_route="{{route('registration.stock.deposited')}}"><i class="ri-save-line"></i> Salvar</button>
+                        <button type="button" class="btn btn-primary btn-modal-salvar" data-tbody=".Deposito" data-update_table="S" data-save_target="#postNovoDeposito" data-save_route="{{route('registration.stock.deposit')}}"><i class="ri-save-line"></i> Salvar</button>
                     </div>
                 </form>
             </div>
@@ -131,7 +131,7 @@
                     </div>
                     <div class="modal-footer justify-content-between">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="ri-close-line"></i> Fechar</button>
-                        <button type="button" class="btn btn-primary btn-modal-salvar" data-type="PUT" data-tbody=".Deposito" data-update_table="S" data-save_target="#postEditarDeposito" data-save_route="{{route('registration.stock.deposited')}}"><i class="ri-save-line"></i> Salvar</button>
+                        <button type="button" class="btn btn-primary btn-modal-salvar" data-type="PUT" data-tbody=".Deposito" data-update_table="S" data-save_target="#postEditarDeposito" data-save_route="{{route('registration.stock.deposit')}}"><i class="ri-save-line"></i> Salvar</button>
                     </div>
                 </form>
             </div>

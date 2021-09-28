@@ -50,10 +50,10 @@ Route::prefix('registration')->group(function () {
 		Route::put('product_group', [App\Http\Controllers\Registration\Stock\ProductGroupController::class, 'update_product_group'])->name('registration.stock.product_group');
 		Route::delete('product_group', [App\Http\Controllers\Registration\Stock\ProductGroupController::class, 'destroy_product_group'])->name('registration.stock.product_group');
 
-		Route::get('deposited', [App\Http\Controllers\Registration\Stock\DepositedController::class, 'view_deposited'])->name('registration.stock.deposited');
-		Route::post('deposited', [App\Http\Controllers\Registration\Stock\DepositedController::class, 'store_deposited'])->name('registration.stock.deposited');
-		Route::put('deposited', [App\Http\Controllers\Registration\Stock\DepositedController::class, 'update_deposited'])->name('registration.stock.deposited');
-		Route::delete('deposited', [App\Http\Controllers\Registration\Stock\DepositedController::class, 'destroy_deposited'])->name('registration.stock.deposited');
+		Route::get('deposit', [App\Http\Controllers\Registration\Stock\DepositController::class, 'view_deposit'])->name('registration.stock.deposit');
+		Route::post('deposit', [App\Http\Controllers\Registration\Stock\DepositController::class, 'store_deposit'])->name('registration.stock.deposit');
+		Route::put('deposit', [App\Http\Controllers\Registration\Stock\DepositController::class, 'update_deposit'])->name('registration.stock.deposit');
+		Route::delete('deposit', [App\Http\Controllers\Registration\Stock\DepositController::class, 'destroy_deposit'])->name('registration.stock.deposit');
 
 	});
 

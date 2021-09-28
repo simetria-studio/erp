@@ -15,6 +15,6 @@ class ContactCS extends Model
         'contact_name',
         'phone1',
         'phone2',
-        'contatc_email',
+        'contact_email',
     ];
 }

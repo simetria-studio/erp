@@ -42,4 +42,8 @@ class Company extends Model
     {
         return $this->hasMany(ProductGroup::class, 'company_id');
     }
+    public function clientSuppliers()
+    {
+        return $this->hasMany(ClientSupplier::class, 'company_id');
+    }
 }

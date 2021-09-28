@@ -18,7 +18,7 @@ Route::prefix('settings')->group(function () {
 		Route::get('registration', [App\Http\Controllers\Settings\Company\CompanyController::class, 'view_company'])->name('setting.company.registration');
 		Route::get('registration/create', [App\Http\Controllers\Settings\Company\CompanyController::class, 'create_company'])->name('setting.company.registration.create');
 		Route::post('registration', [App\Http\Controllers\Settings\Company\CompanyController::class, 'store_company'])->name('setting.company.registration');
-		Route::get('registration/edit/{id}', [App\Http\Controllers\Settings\Company\CompanyController::class, 'store_company'])->name('setting.company.registration.edit');
+		Route::get('registration/edit/{id}', [App\Http\Controllers\Settings\Company\CompanyController::class, 'edit_company'])->name('setting.company.registration.edit');
 		Route::put('registration', [App\Http\Controllers\Settings\Company\CompanyController::class, 'update_company'])->name('setting.company.registration');
 		Route::delete('registration', [App\Http\Controllers\Settings\Company\CompanyController::class, 'destroy_company'])->name('setting.company.registration');
 
@@ -31,7 +31,7 @@ Route::prefix('registration')->group(function () {
 		Route::get('customer_provider', [App\Http\Controllers\Registration\Commercial\CustomerProviderController::class, 'view_customer_provider'])->name('registration.commercial.customer_provider');
 		Route::get('customer_provider/create', [App\Http\Controllers\Registration\Commercial\CustomerProviderController::class, 'create_customer_provider'])->name('registration.commercial.customer_provider.create');
 		Route::post('customer_provider', [App\Http\Controllers\Registration\Commercial\CustomerProviderController::class, 'store_customer_provider'])->name('registration.commercial.customer_provider');
-		Route::get('customer_provider/edit/{id}', [App\Http\Controllers\Registration\Commercial\CustomerProviderController::class, 'store_customer_provider'])->name('registration.commercial.customer_provider.edit');
+		Route::get('customer_provider/edit/{id}', [App\Http\Controllers\Registration\Commercial\CustomerProviderController::class, 'edit_customer_provider'])->name('registration.commercial.customer_provider.edit');
 		Route::put('customer_provider', [App\Http\Controllers\Registration\Commercial\CustomerProviderController::class, 'update_customer_provider'])->name('registration.commercial.customer_provider');
 		Route::delete('customer_provider', [App\Http\Controllers\Registration\Commercial\CustomerProviderController::class, 'destroy_customer_provider'])->name('registration.commercial.customer_provider');
 
@@ -41,7 +41,7 @@ Route::prefix('registration')->group(function () {
 		Route::get('product', [App\Http\Controllers\Registration\Stock\ProductController::class, 'view_product'])->name('registration.stock.product');
 		Route::get('product/create', [App\Http\Controllers\Registration\Stock\ProductController::class, 'create_product'])->name('registration.stock.product.create');
 		Route::post('product', [App\Http\Controllers\Registration\Stock\ProductController::class, 'store_product'])->name('registration.stock.product');
-		Route::get('product/edit/{id}', [App\Http\Controllers\Registration\Stock\ProductController::class, 'store_product'])->name('registration.stock.product.edit');
+		Route::get('product/edit/{id}', [App\Http\Controllers\Registration\Stock\ProductController::class, 'edit_product'])->name('registration.stock.product.edit');
 		Route::put('product', [App\Http\Controllers\Registration\Stock\ProductController::class, 'update_product'])->name('registration.stock.product');
 		Route::delete('product', [App\Http\Controllers\Registration\Stock\ProductController::class, 'destroy_product'])->name('registration.stock.product');
 

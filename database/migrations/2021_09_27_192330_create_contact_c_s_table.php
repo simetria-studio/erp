@@ -20,7 +20,7 @@ class CreateContactCSTable extends Migration
             $table->string('contact_name')->nullable();
             $table->string('phone1')->nullable();
             $table->string('phone2')->nullable();
-            $table->string('contatc_email')->nullable();
+            $table->string('contact_email')->nullable();
             $table->timestamps();
         });
     }

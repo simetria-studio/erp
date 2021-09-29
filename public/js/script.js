@@ -286,7 +286,31 @@ $(document).ready(function(){
         var opt = $('#client_supplier option:selected');
         opt.remove();
 
-        console.log(opt.data('dados'));
+        var dados = opt.data('dados');
+
+        $('.fornecedores').append(
+            '<div class="row">'+
+                '<div class="col-12 col-md-6">'+
+                    '<label for="providers">Codigo e Nome do Fornecedor</label>'+
+                    '<input type="text" class="form-control" value="'+dados.id+'-'+dados.corporate_name+'" disabled>'+
+                    '<input type="hidden" name="providers['+dados.id+'][provider_id]" value="'+dados.id+'">'+
+                    '<input type="hidden" name="providers['+dados.id+'][provider_name]" value="'+dados.corporate_name+'">'+
+                '</div>'+
+                '<div class="col-12 col-md-4">'+
+                    '<label for="providers">preço de Custo</label>'+
+                    '<input type="text" name="providers['+dados.id+'][cost_price]" class="form-control">'+
+                '</div>'+
+                '<div class="col-12 col-md-2">'+
+                    '<button type="button" class="btn btn-danger btn-remove-provider mt-4" data-dados=\''+JSON.stringify(dados)+'\'><i class="ri-close-fill"></i></button>'+
+                '</div>'+
+            '</div>'
+        );
+    });
+    $(document).on('click', '.btn-remove-provider', function(){
+        var dados = $(this).data('dados');
+        $(this).closest('.row').remove();
+
+        $('#client_supplier').append('<option value="'+dados.id+'" data-dados=\''+JSON.stringify(dados)+'\'>'+dados.id+' - '+dados.corporate_name+'</option>');
     });
 
     // Para adiconar contato no fornecedor ou cliente

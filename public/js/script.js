@@ -223,6 +223,77 @@ $(document).ready(function(){
         });
     });
 
+    // Seleção de dados por empresa
+    $(document).on('change', '#company_with', function(){
+        var dados = $(this).find('option:selected').data('dados');
+
+        console.log(dados);
+        if(dados.deposits){
+            $('[name="deposit"]').empty();
+            for(var i=0; dados.deposits.length>i; i++){
+                $('[name="deposit"]').append('<option value="'+dados.deposits[i].id+'">'+dados.deposits[i].name+'</option>');
+            }
+        }
+
+        if(dados.client_suppliers){
+            $('[name="client_supplier"]').empty();
+            for(var i=0; dados.client_suppliers.length>i; i++){
+                $('[name="client_supplier"]').append('<option value="'+dados.client_suppliers[i].id+'" data-dados=\''+JSON.stringify(dados.client_suppliers[i])+'\'>'+dados.client_suppliers[i].id+' - '+dados.client_suppliers[i].corporate_name+'</option>');
+            }
+        }
+
+        if(dados.products_groups){
+            $('[name="product_group"]').empty();
+            for(var i=0; dados.products_groups.length>i; i++){
+                $('[name="product_group"]').append('<option value="'+dados.products_groups[i].id+'">'+dados.products_groups[i].name+'</option>');
+            }
+        }
+    });
+
+    // Adicioanndo fotos
+    $(document).on('click', '.btn-add-foto', function(){$(this).parent().find('.add-foto').trigger('click');});
+    $(document).on('change', '.add-foto', function(){
+        $(this).removeClass('add-foto');
+
+        $(this).parent().find('.btn-add-foto').removeClass('btn-primary btn-add-foto').addClass('btn-danger btn-remove-foto').html('<i class="ri-delete-bin-6-fill"></i> Remover Foto');
+
+        $(this).parent().parent().append(
+            '<div class="col-6 col-md-3 mb-2">'+
+                '<button type="button" class="btn btn-primary btn-add-foto mb-2"><i class="ri-add-fill"></i> Anexar Foto</button>'+
+                '<input type="file" class="d-none add-foto" name="foto[]">'+
+                '<div class="foto"></div>'+
+            '</div>'
+        );
+
+        var form_img = $(this).parent();
+
+        var preview = form_img.find('.foto');
+        var files   = $(this).prop('files');
+
+        function readAndPreview(file) {
+            // Make sure `file.name` matches our extensions criteria
+            if ( /\.(jpe?g|png|gif)$/i.test(file.name) ) {
+                var reader = new FileReader();
+
+                reader.addEventListener("load", function () {
+                var image = new Image();
+                image.classList = 'rounded img-fluid';
+                // image.height = 180;
+                image.title = file.name;
+                image.src = this.result;
+                preview.append( image );
+                }, false);
+
+                reader.readAsDataURL(file);
+            }
+        }
+
+        if (files) {
+            [].forEach.call(files, readAndPreview);
+        }
+    });
+    $(document).on('click', '.btn-remove-foto', function(){$(this).parent().remove();});
+
     // Opções do fornecedor
     $(document).on('change', '#type_person', function(){
         $('.document-number, .D-J, .D-F, .tax-regime-code, .ie-exempt, .municipal-registration, .R-G, .issuing-agency').addClass('d-none');

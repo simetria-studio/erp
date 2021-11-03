@@ -1,33 +1,37 @@
 .select2.select2-container {
-    width: 100%;
-    background: var(--iq-light-border);
-    border: none;
+    width: 100% !important;
+    border: 1px solid var(--iq-dark-border);
     font-size: 14px;
     margin-right: 15px;
     border-radius: 10px;
 
     .select2-selection {
-        background-color: #fff;
-        border: 1px solid #aaa;
+        width: 100%;
         border-radius: 10px;
         height: 45px;
         line-height: 45px;
-        background: var(--iq-light-border);
+        background: transparent;
         border: none;
         font-size: 14px;
         margin-right: 15px;
         padding-top: 10px;
 
         .select2-selection__rendered {
-            color: #fff;
+            color: var(--iq-dark-color);
         }
 
         .select2-selection__arrow {
             top: 10px;
-            b {
-                border-color: #fff transparent transparent transparent;
-            }
         }
+    }
+}
+
+.input-group {
+    .select2.select2-container {
+        width: auto !important;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        margin-right: 0;
     }
 }
 

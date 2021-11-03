@@ -16,7 +16,7 @@ class ProductController extends Controller
 
     public function create_product()
     {
-        $companies = Company::where('user_id', auth()->user()->id)->with('deposits')->get();
+        $companies = Company::where('user_id', auth()->user()->id)->with('deposits', 'productsGroups', 'clientSuppliers')->get();
         return view('registration.stock.product.create', compact('companies'));
     }
 

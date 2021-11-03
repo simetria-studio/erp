@@ -22,15 +22,15 @@
                         </div>
 
                         <div class="iq-card-body">
-                            <form action="{{route('registration.stock.product')}}" method="post">
+                            <form action="{{route('registration.stock.product')}}" enctype="multipart/form-data" method="post">
                                 @csrf
                                 <div class="row justify-content-center">
                                     <div class="form-group col-12 col-md-6">
                                         <label for="company_id">Empresa <span class="text-danger">*</span></label>
-                                        <select name="company_id" class="form-control @error('company_id') is-invalid @enderror">
+                                        <select name="company_id" id="company_with" class="form-control @error('company_id') is-invalid @enderror">
                                             <option value="">Selecione uma Opção</option>
                                             @foreach ($companies as $company)
-                                                <option value="{{$company->id}}" {{old('company_id') == $company->id ? ' selected' : ''}}>{{$company->corporate_name}}</option>
+                                                <option value="{{$company->id}}" data-dados="{{$company}}" {{old('company_id') == $company->id ? ' selected' : ''}}>{{$company->corporate_name}}</option>
                                             @endforeach
                                         </select>
                                         @error('company_id')
@@ -83,14 +83,14 @@
                                             </div>
                                             <div class="form-group col-12 col-md-3">
                                                 <label for="product_type">Tipo de Produto</label>
-                                                <select name="product_type" id="product_type" class="form-control">
+                                                <select name="product_type" id="product_type" class="form-control select2">
                                                     <option value="P" {{old('product_type') == 'P' ? 'selected' : ''}}>Produto</option>
                                                     <option value="S" {{old('product_type') == 'S' ? 'selected' : ''}}>Serviço</option>
                                                 </select>
                                             </div>
                                             <div class="form-group col-12 col-md-3">
                                                 <label for="sales_format">Formato de Venda</label>
-                                                <select name="sales_format" id="sales_format" class="form-control">
+                                                <select name="sales_format" id="sales_format" class="form-control select2">
                                                     <option value="S" {{old('sales_format') == 'S' ? 'selected' : ''}}>Simples</option>
                                                     <option value="CV" {{old('sales_format') == 'CV' ? 'selected' : ''}}>Com Variação</option>
                                                     {{-- <option value="CC" {{old('sales_format') == 'CC' ? 'selected' : ''}}>Com Composição</option> --}}
@@ -98,7 +98,7 @@
                                             </div>
                                             <div class="form-group col-12 col-md-3">
                                                 <label for="unit_dimension">Unidade de Medida</label>
-                                                <select name="unit_dimension" class="form-control">
+                                                <select name="unit_dimension" class="form-control select2">
                                                     <option value="QT" {{old('unit_dimension') == 'QT' ? 'selected' : ''}}>Quantidade (qt)</option>
                                                     <option value="UN" {{old('unit_dimension') == 'UN' ? 'selected' : ''}}>Unidade (Un)</option>
                                                     <option value="M" {{old('unit_dimension') == 'M' ? 'selected' : ''}}>Metro (m)</option>
@@ -143,7 +143,7 @@
                                             </div>
                                             <div class="form-group col-12 col-md-3">
                                                 <label for="measure">Medida</label>
-                                                <select name="measure" id="measure" class="form-control">
+                                                <select name="measure" id="measure" class="form-control select2">
                                                     <option value="M" {{old('measure') == 'M' ? 'selected' : ''}}>Metros</option>
                                                     <option value="C" {{old('measure') == 'C' ? 'selected' : ''}}>Centímetro</option>
                                                     <option value="MM" {{old('measure') == 'MM' ? 'selected' : ''}}>Milímetro</option>
@@ -153,16 +153,20 @@
                                                 <label for="gtin_ean">GTIN/EAN</label>
                                                 <input name="gtin_ean" value="{{old('gtin_ean')}}" type="text" class="form-control" placeholder="GTIN/EAN">
                                             </div>
+                                            <div class="form-group col-12 col-md-3 sale-price">
+                                                <label for="gtin_ean_tax">GTIN/EAN Tributário</label>
+                                                <input name="gtin_ean_tax" value="{{old('gtin_ean_tax')}}" type="text" class="form-control" placeholder="GTIN/EAN">
+                                            </div>
                                             <div class="form-group col-12 col-md-3">
                                                 <label for="production">Produção</label>
-                                                <select name="production" id="production" class="form-control">
+                                                <select name="production" id="production" class="form-control select2">
                                                     <option value="P" {{old('production') == 'P' ? 'selected' : ''}}>Própria</option>
                                                     <option value="T" {{old('production') == 'T' ? 'selected' : ''}}>Terceiros</option>
                                                 </select>
                                             </div>
                                             <div class="form-group col-12 col-md-3">
                                                 <label for="condition">Condição</label>
-                                                <select name="condition" id="condition" class="form-control">
+                                                <select name="condition" id="condition" class="form-control select2">
                                                     <option value="N" {{old('condition') == 'N' ? 'selected' : ''}}>Novo</option>
                                                     <option value="U" {{old('condition') == 'U' ? 'selected' : ''}}>Usado</option>
                                                 </select>
@@ -188,13 +192,7 @@
 
                                             <div class="form-group col-12 col-md-3">
                                                 <label for="deposit">Depositos</label>
-                                                <select name="deposit" class="form-control">
-                                                    @foreach ($companies as $company)
-                                                        @foreach ($company->deposits as $deposit)
-                                                            <option value="{{$deposit->id}}">{{$deposit->id}} - {{$deposit->name}}</option>
-                                                        @endforeach
-                                                    @endforeach
-                                                </select>
+                                                <select name="deposit" class="form-control select2"></select>
                                             </div>
                                             <div class="form-group col-12 col-md-3">
                                                 <label for="quantity">Quantidade</label>
@@ -211,13 +209,7 @@
                                             <div class="form-group col-12 col-md-4">
                                                 <label for="client_supplier">Fornecedor</label>
                                                 <div class="input-group">
-                                                    <select name="client_supplier" id="client_supplier" class="form-control">
-                                                        @foreach ($companies as $company)
-                                                            @foreach ($company->clientSuppliers as $clientSupplier)
-                                                                <option value="{{$clientSupplier->id}}" data-dados="{{$clientSupplier}}">{{$clientSupplier->id}} - {{$clientSupplier->corporate_name}}</option>
-                                                            @endforeach
-                                                        @endforeach
-                                                    </select>
+                                                    <select name="client_supplier" id="client_supplier" class="form-control select2"></select>
                                                     <div class="input-group-append">
                                                         <button type="button" class="btn btn-success btn-add-fornecedor"><i class="ri-add-fill"></i></button>
                                                     </div>
@@ -228,16 +220,128 @@
                                         <div class="fornecedores mb-3"></div>
                                     </div>
                                     <div class="tab-pane fade" id="tributacao-justify" role="tabpanel" aria-labelledby="tributacao-tab-justify">
-                                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                                        <div class="row">
+                                            <div class="form-group col-12 col-md-6">
+                                                <label for="source">Origem</label>
+                                                <select name="source" class="form-control select2">
+                                                    <option value="0" @if(old('source') == '0') selected @endif>0 - Nacional, exceto as indicadas nos códigos 3, 4, 5 e 8</option>
+                                                    <option value="1" @if(old('source') == '1') selected @endif>1 - Estrangeira - Importação direta, exceto a indicada no código 6</option>
+                                                    <option value="2" @if(old('source') == '2') selected @endif>2 - Estrangeira - Adquirida no mercado interno, exceto a indicada no código 7</option>
+                                                    <option value="3" @if(old('source') == '3') selected @endif>3 - Nacional, mercadoria ou bem com Conteúdo de Importação superior a 40% e inferior ou igual a 70%</option>
+                                                    <option value="4" @if(old('source') == '4') selected @endif>4 - Nacional, cuja produção tenha sido feita em conformidade com os processos produtivos básicos de que tratam as legislações citadas nos Ajustes</option>
+                                                    <option value="5" @if(old('source') == '5') selected @endif>5 - Nacional, mercadoria ou bem com Conteúdo de Importação inferior ou igual a 40%</option>
+                                                    <option value="6" @if(old('source') == '6') selected @endif>6 - Estrangeira - Importação direta, sem similar nacional, constante em lista da CAMEX</option>
+                                                    <option value="7" @if(old('source') == '7') selected @endif>7 - Estrangeira - Adquirida no mercado interno, sem similar nacional, constante em lista da CAMEX</option>
+                                                    <option value="8" @if(old('source') == '8') selected @endif>8 - Nacional, mercadoria ou bem com Conteúdo de Importação superior a 70%</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group col-12 col-md-3">
+                                                <label for="ncm">NCM</label>
+                                                <input name="ncm" type="text" value="{{old('ncm')}}" class="form-control" placeholder="NCM">
+                                            </div>
+                                            <div class="form-group col-12 col-md-3">
+                                                <label for="cest">CEST</label>
+                                                <input name="cest" value="{{old('cest')}}" type="text" class="form-control" placeholder="CEST">
+                                            </div>
+                                            <div class="form-group col-12 col-md-4">
+                                                <label for="item_type">Tipo do Item</label>
+                                                <select name="item_type" class="form-control select2">
+                                                    <option value="">Selecione uma Opção</option>
+                                                    <option value="00"  @if(old('item_type') == '00') selected @endif>Mercadoria para Revenda</option>
+                                                    <option value="01"  @if(old('item_type') == '01') selected @endif>Matéria-Prima</option>
+                                                    <option value="02"  @if(old('item_type') == '02') selected @endif>Embalagem</option>
+                                                    <option value="03"  @if(old('item_type') == '03') selected @endif>Produto em Processo</option>
+                                                    <option value="04"  @if(old('item_type') == '04') selected @endif>Produto Acabado</option>
+                                                    <option value="05"  @if(old('item_type') == '05') selected @endif>Subproduto</option>
+                                                    <option value="06"  @if(old('item_type') == '06') selected @endif>Produto Intermediário</option>
+                                                    <option value="07"  @if(old('item_type') == '07') selected @endif>Material de Uso e Consumo</option>
+                                                    <option value="08"  @if(old('item_type') == '08') selected @endif>Ativo Imobilizado</option>
+                                                    <option value="09"  @if(old('item_type') == '09') selected @endif>Serviços</option>
+                                                    <option value="10"  @if(old('item_type') == '10') selected @endif>Outros insumos</option>
+                                                    <option value="99"  @if(old('item_type') == '99') selected @endif>Outras</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group col-12 col-md-3">
+                                                <label for="tax_percentage">% Tributos</label>
+                                                <input name="tax_percentage" value="{{old('tax_percentage')}}" type="text" class="form-control" placeholder="CEST">
+                                            </div>
+                                            <div class="form-group col-12 col-md-4">
+                                                <label for="product_group">Grupo de Produtos</label>
+                                                <select name="product_group" class="form-control select2"></select>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="form-group col-12"><h4>ICMS</h4></div>
+
+                                            <div class="form-group col-12 col-md-3">
+                                                <label for="base_value_icms_st">Valor Base ICMS ST Para Retenção</label>
+                                                <input name="base_value_icms_st" type="text" value="{{old('base_value_icms_st')}}" class="form-control" placeholder="Valor Base ICMS ST Para Retenção">
+                                            </div>
+                                            <div class="form-group col-12 col-md-3">
+                                                <label for="value_icms_st">Valor ICMS ST Para Retenção</label>
+                                                <input name="value_icms_st" value="{{old('value_icms_st')}}" type="text" class="form-control" placeholder="Valor ICMS ST Para Retenção">
+                                            </div>
+                                            <div class="form-group col-12 col-md-3">
+                                                <label for="substitute_icms_value">Valor ICMS Própio do Súbstituto</label>
+                                                <input name="substitute_icms_value" value="{{old('substitute_icms_value')}}" type="text" class="form-control" placeholder="Valor ICMS Própio do Súbstituto">
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="form-group col-12"><h4>IPI</h4></div>
+
+                                            <div class="form-group col-12 col-md-3">
+                                                <label for="tipi_exception_code">Codigo Exceção da TIPI</label>
+                                                <input name="tipi_exception_code" type="text" value="{{old('tipi_exception_code')}}" class="form-control" placeholder="Codigo Exceção da TIPI">
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="form-group col-12"><h4>PIS / COFINS</h4></div>
+
+                                            <div class="form-group col-12 col-md-3">
+                                                <label for="fixed_pis_value">Valor PIS Fixo</label>
+                                                <input name="fixed_pis_value" type="text" value="{{old('fixed_pis_value')}}" class="form-control" placeholder="Valor PIS Fixo">
+                                            </div>
+                                            <div class="form-group col-12 col-md-3">
+                                                <label for="fixed_cofins_value">Valor COFINS Fixo</label>
+                                                <input name="fixed_cofins_value" value="{{old('fixed_cofins_value')}}" type="text" class="form-control" placeholder="Valor COFINS Fixo">
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="form-group col-12"><h4>Dados Adicionais</h4></div>
+
+                                            <div class="form-group col-12">
+                                                <label for="add_information">Informações Adicionais</label>
+                                                <textarea name="add_information" class="form-control"></textarea>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="tab-pane fade" id="variacoes-justify" role="tabpanel" aria-labelledby="variacoes-tab-justify">
                                         <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
                                     </div>
                                     <div class="tab-pane fade" id="imagens-justify" role="tabpanel" aria-labelledby="imagens-tab-justify">
-                                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                                        <div class="row">
+                                            <div class="col-6 col-md-3 mb-2">
+                                                <button type="button" class="btn btn-primary btn-add-foto mb-2"><i class="ri-add-fill"></i> Anexar Foto</button>
+                                                <input type="file" name="foto[]" class="d-none add-foto">
+                                                <div class="foto"></div>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="tab-pane fade" id="informacaoAdicional-justify" role="tabpanel" aria-labelledby="informacaoAdicional-tab-justify">
-                                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                                        <div class="row">
+                                            <div class="form-group col-12 my-3">
+                                                <label for="short_description">Descrição Curta</label>
+                                                <textarea name="short_description" class="form-control"></textarea>
+                                            </div>
+                                            <div class="form-group col-12 my-3">
+                                                <label for="description">Descrição Completa</label>
+                                                <textarea name="description" class="form-control"></textarea>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 

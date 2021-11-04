@@ -320,7 +320,20 @@
                                         </div>
                                     </div>
                                     <div class="tab-pane fade" id="variacoes-justify" role="tabpanel" aria-labelledby="variacoes-tab-justify">
-                                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                                        <div class="row my-2 justify-content-center">
+                                            <div class="form-group col-8 col-md-4">
+                                                <label for="">Quantidade de Variações & Atributos</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <button type="button" class="btn btn-primary btn-add-variacao"><i class="ri-add-fill"></i> Adcionar Variações</button>
+                                                    </div>
+                                                    <input type="text" class="form-control q-variacoes" placeholder="Q. Variação">
+                                                    <input type="text" class="form-control q-atributos" placeholder="Q. Atributos">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="variacoes mb-4"></div>
                                     </div>
                                     <div class="tab-pane fade" id="imagens-justify" role="tabpanel" aria-labelledby="imagens-tab-justify">
                                         <div class="row">

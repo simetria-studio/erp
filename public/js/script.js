@@ -332,6 +332,36 @@ $(document).ready(function(){
         }
     });
 
+    // Adicionando Variações
+    $(document).on('click', '.btn-add-variacao', function(){
+        var total_variacoes = $('.variacoes').find('variacao-filho').length;
+        var q_varaicoes = parseInt($('.q-variacoes').val()) || 0;
+        var q_atributos = parseInt($('.q-atributos').val()) || 0;
+        $('.q-variacoes,.q-atributos').val('');
+
+        for(var Vi=1; q_varaicoes>=Vi; Vi++){
+            var html = '<div class="row variacao-filho">';
+            html += '<div class="col-12 mt-4 mb-2"><h1>'+(total_variacoes+Vi)+'ª Variação</h1></div>';
+            html += '<div class="col-12 col-md-9"><label>Atributos (Exemplos = Cor:verde - Peso:5kg)</label><div class="input-group">';
+
+            for(var Ai=0; q_atributos>Ai; Ai++){
+                html += 
+                '<input type="text" class="form-control" name="variacoes['+(total_variacoes+Vi)+'][atributo][]">'
+                ;
+            }
+
+            html += '</div></div>';
+
+            html += '<div class="col-12 col-md-3">'+
+                        '<label>Preço</label>'+
+                        '<input type="text" class="form-control" name="variacoes['+(total_variacoes+Vi)+'][price]">'+
+                    '</div>';
+            html += '</div>';
+
+            $('.variacoes').append(html);
+        }
+    });
+
     // Opções do produto
     $(document).on('change', '#product_type', function(){
         if($(this).val() == 'P') {

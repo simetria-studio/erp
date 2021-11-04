@@ -134,7 +134,7 @@ class CustomerProviderController extends Controller
         $rota = route('registration.commercial.customer_provider');
         $msg = ($request->client_type == '0' ? 'Cliente' : 'Fornecedor').' alterado com Sucesso!';
 
-        return view('success', compact('rota', 'msg'));
+        return view('success', get_defined_vars());
     }
 
     public function destroy_customer_provider(Request $request)

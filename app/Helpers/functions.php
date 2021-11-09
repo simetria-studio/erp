@@ -5,6 +5,8 @@ use App\Models\Module;
 use App\Models\Program;
 use App\Models\MenuAccess;
 
+use App\Models\Company;
+
 if(!function_exists('menuOptions')){
     function menuOptions(){
         if(auth()->user()->permission == 10){
@@ -153,3 +155,33 @@ if(!function_exists('getPosition')){
         }
     }
 }
+
+if(!function_exists('getCompanies')){
+    function getCompanies($data = null){
+        $companies = Company::where('user_id', auth()->user()->id)->with(
+            'deposits',
+            'productsGroups',
+            'clientSuppliers',
+            'products.deposit',
+            'products.stocks',
+            'products.providers',
+            'products.images',
+            'products.variations',
+            'products.productVariations',
+            'products.productVariations.parentVariations',
+            'products.productVariations.deposit',
+            'products.productVariations.stocks',
+            'products.productVariations.providers',
+            'products.productVariations.images',
+        )
+        ->with(['products' => function($query) {
+            return $query->whereNull('parent_product_id')->where('status', 1);
+        },'products.productVariations' => function($query) {
+            return $query->where('status', 1);
+        }]);
+
+        return $companies;
+    }
+}
+
+// Não esquecer de criar uma função que busqye as companias e seus relacioanmentos, porque o projeto vai ser muito grande para manutenção

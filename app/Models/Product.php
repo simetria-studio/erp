@@ -49,6 +49,7 @@ class Product extends Model
         'add_information',
         'short_description',
         'description',
+        'status',
     ];
 
     public function stocks()
@@ -56,18 +57,33 @@ class Product extends Model
         return $this->hasMany(Stock::class);
     }
 
-    public function Providers()
+    public function providers()
     {
         return $this->hasMany(ProductProvider::class);
     }
 
-    public function Images()
+    public function images()
     {
         return $this->hasMany(ProductImage::class);
     }
 
+    public function productVariations()
+    {
+        return $this->hasMany(Product::class, 'parent_product_id');
+    }
+
+    public function parentVariations()
+    {
+        return $this->hasMany(Variation::class, 'product_id');
+    }
+
     public function variations()
     {
-        return $this->hasMany(Variation::class, 'id', 'parent_product_id');
+        return $this->hasMany(Variation::class, 'parent_product_id');
+    }
+
+    public function deposit()
+    {
+        return $this->hasOne(Deposit::class, 'id', 'deposit_id');
     }
 }

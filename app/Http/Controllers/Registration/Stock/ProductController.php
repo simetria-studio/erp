@@ -7,6 +7,7 @@ use App\Models\Company;
 use App\Models\Product;
 use App\Models\ProductProvider;
 use App\Models\ProductImage;
+use App\Models\Variation;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -18,14 +19,28 @@ use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
+    public $unit_dimension = [
+        'QT' => 'Quantidade (qt)',
+        'UN' => 'Unidade (Un)',
+        'M' => 'Metro (m)',
+        'M²' => 'Metro Quadrado (m²)',
+        'KG' => 'Kilograma (Kg)',
+        'G' => 'Grama (g)',
+        'L' => 'Litros (L)',
+    ];
+
     public function view_product()
     {
-        return view('registration.stock.product');
+        $unit_dimension = $this->unit_dimension;
+        $companies = getCompanies()->get();
+
+        return view('registration.stock.product', get_defined_vars());
     }
 
     public function create_product()
     {
-        $companies = Company::where('user_id', auth()->user()->id)->with('deposits', 'productsGroups', 'clientSuppliers')->get();
+        $unit_dimension = $this->unit_dimension;
+        $companies = getCompanies()->get();
         return view('registration.stock.product.create', get_defined_vars());
     }
 
@@ -50,7 +65,7 @@ class ProductController extends Controller
         $product['gtin_ean_tax']            = $request->gtin_ean_tax;
         $product['production']              = $request->production;
         $product['condition']               = $request->condition;
-        $product['deposit_id']              = $request->deposit;
+        $product['deposit_id']              = $request->product_type !== 'S' ? $request->deposit : null;
         $product['stock_min']               = $request->stock_min;
         $product['stock_max']               = $request->stock_max;
         $product['quantity']                = $request->quantity;
@@ -72,15 +87,17 @@ class ProductController extends Controller
         $product['description']             = $request->description;
         $product_data = Product::create($product);
 
-        $stock['product_id']    = $product_data->id;
-        $stock['type']          = "E";
-        $stock['quantity']      = $request->quantity;
-        $stock['description']   = 'Entrada Inicial (Produto cadastrado)';
-        $stock_data = Stock::create($stock);
+        if($request->product_type !== 'S'){
+            $stock['product_id']    = $product_data->id;
+            $stock['type']          = "E";
+            $stock['quantity']      = $request->quantity;
+            $stock['description']   = 'Entrada Inicial (Produto cadastrado)';
+            $stock_data = Stock::create($stock);
+        }
 
         if(isset($request->variacoes)){
             foreach($request->variacoes as $variacoes){
-                $product['sku']                 = $product['sku'].'-'.Str::random();
+                $product['sku']                 = $request->sku.'-'.Str::random(4);
                 $product['parent_product_id']   = $product_data->id;
                 $product['sale_price']          = $variacoes['price'];
                 $copy_product_data = Product::create($product);
@@ -93,6 +110,8 @@ class ProductController extends Controller
                     $variation['product_id']        = $copy_product_data->id;
                     $variation['attribute_name']    = explode(':', $attr)[0];
                     $variation['attribute_value']   = explode(':', $attr)[1];
+
+                    Variation::create($variation);
                 }
             }
         }
@@ -134,7 +153,16 @@ class ProductController extends Controller
 
     public function edit_product($id)
     {
-        # code...
+        $unit_dimension = $this->unit_dimension;
+        $companies = getCompanies()->get();
+
+        $product = getCompanies()->whereHas('products', function($query) use($id) {
+            return $query->where('id', $id);
+        })->with(['products' => function($query) use($id) {
+            return $query->find($id);
+        }])->first()->products->first();
+
+        return view('registration.stock.product.edit', get_defined_vars());
     }
 
     public function update_product(Request $request)
@@ -144,6 +172,7 @@ class ProductController extends Controller
 
     public function destroy_product(Request $request)
     {
-        # code...
+        Product::find($request->id)->update(['status' => '0']);
+        return response()->json($request->id);
     }
 }

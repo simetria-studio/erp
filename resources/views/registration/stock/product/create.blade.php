@@ -99,13 +99,9 @@
                                             <div class="form-group col-12 col-md-3">
                                                 <label for="unit_dimension">Unidade de Medida</label>
                                                 <select name="unit_dimension" class="form-control select2">
-                                                    <option value="QT" {{old('unit_dimension') == 'QT' ? 'selected' : ''}}>Quantidade (qt)</option>
-                                                    <option value="UN" {{old('unit_dimension') == 'UN' ? 'selected' : ''}}>Unidade (Un)</option>
-                                                    <option value="M" {{old('unit_dimension') == 'M' ? 'selected' : ''}}>Metro (m)</option>
-                                                    <option value="M²" {{old('unit_dimension') == 'M²' ? 'selected' : ''}}>Metro Quadrado (m²)</option>
-                                                    <option value="KG" {{old('unit_dimension') == 'KG' ? 'selected' : ''}}>Kilograma (Kg)</option>
-                                                    <option value="G" {{old('unit_dimension') == 'G' ? 'selected' : ''}}>Grama (g)</option>
-                                                    <option value="L" {{old('unit_dimension') == 'L' ? 'selected' : ''}}>Litros (L)</option>
+                                                    @foreach ($unit_dimension as $key => $value)
+                                                        <option value="{{$key}}" {{old('unit_dimension') == $key ? 'selected' : ''}}>{{$value}}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                             <div class="form-group col-12 col-md-3 sale-price">

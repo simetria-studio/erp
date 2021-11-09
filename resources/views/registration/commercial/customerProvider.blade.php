@@ -38,7 +38,7 @@
                                     <tbody class="ClienteSupplier">
                                         @foreach ($companies as $company)
                                             @foreach ($company->clientSuppliers as $client_supplier)
-                                                <tr>
+                                                <tr class="tr-id-{{$v->id}}">
                                                     <td>{{$client_supplier->id}}</td>
                                                     <td>{{$company->corporate_name}}</td>
                                                     <td>{{$client_supplier->corporate_name}}</td>

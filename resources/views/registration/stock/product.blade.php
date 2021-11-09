@@ -26,34 +26,63 @@
                                 <table class="table table-striped table-hover">
                                     <thead>
                                         <tr>
-                                            {{-- <th>Codigo</th>
+                                            <th>Cod. Interno</th>
                                             <th>Empresa</th>
-                                            <th>Nome/Razão Social</th>
-                                            <th>Apelido/Nome Fantasia</th>
-                                            <th>Documento</th>
-                                            <th>Cidade</th>
-                                            <th>Ações</th> --}}
+                                            <th>SKU</th>
+                                            <th>Produto/Serviço</th>
+                                            <th>Deposito</th>
+                                            <th>Estoque</th>
+                                            <th>Unidade de Medida</th>
+                                            <th>Preço de Venda</th>
+                                            <th>Ações</th>
                                         </tr>
                                     </thead>
-                                    <tbody class="ClienteSupplier">
-                                        {{-- @foreach ($companies as $company)
-                                            @foreach ($company->clientSuppliers as $client_supplier)
-                                                <tr>
-                                                    <td>{{$client_supplier->id}}</td>
+                                    <tbody class="Products">
+                                        @foreach ($companies as $company)
+                                            @foreach ($company->products as $product)
+                                                <tr class="tr-id-{{$product->id}}">
+                                                    {{-- <td>{{str_pad($product->id, 4, '0', STR_PAD_LEFT)}}</td> --}}
+                                                    <td>{{\Str::padLeft($product->id, 4, '0')}}</td>
                                                     <td>{{$company->corporate_name}}</td>
-                                                    <td>{{$client_supplier->corporate_name}}</td>
-                                                    <td>{{$client_supplier->fantasy_name}}</td>
-                                                    <td>{{$client_supplier->document_number}}</td>
-                                                    <td>{{$client_supplier->city}}</td>
+                                                    <td>{{$product->sku}}</td>
+                                                    <td>
+                                                        {{$product->product_type == 'S' ? '(Serviço)' : '(Produto)'}}
+                                                        {{$product->product_name}}
+                                                    </td>
+                                                    <td>{{$product->deposit->name ?? 'Sem Deposito'}}</td>
+                                                    <td>{{$product->quantity ?? 0}}</td>
+                                                    <td>{{$unit_dimension[$product->unit_dimension]}}</td>
+                                                    <td>R$ {{number_format($product->sale_price, 2, ',', '.')}}</td>
                                                     <td>
                                                         <div class="btn-group">
-                                                            <button type="button" class="btn btn-danger btn-apagar" data-tbody=".ClienteSupplier" data-dados="{{json_encode(['id' => $client_supplier->id])}}" data-route="{{route('registration.commercial.customer_provider')}}"><i class="ri-delete-bin-5-line"></i></button>
-                                                            <a href="{{route('registration.commercial.customer_provider.edit', $client_supplier->id)}}" class="btn btn-info"><i class="ri-edit-box-line"></i></a>
+                                                            <button type="button" class="btn btn-danger btn-apagar" data-tbody=".Products" data-dados="{{json_encode(['id' => $product->id])}}" data-route="{{route('registration.stock.product')}}"><i class="ri-delete-bin-5-line"></i></button>
+                                                            <a href="{{route('registration.stock.product.edit', $product->id)}}" class="btn btn-info"><i class="ri-edit-box-line"></i></a>
                                                         </div>
                                                     </td>
                                                 </tr>
+                                                @foreach ($product->productVariations as $variation)
+                                                    <tr class="tr-id-{{$variation->id}}">
+                                                        <td>{{\Str::padLeft($product->id, 4, '0')}} - {{\Str::padLeft($variation->id, 4, '0')}}</td>
+                                                        <td>{{$company->corporate_name}}</td>
+                                                        <td>{{$variation->sku}}</td>
+                                                        <td>
+                                                            {{$variation->product_type == 'S' ? '(Serviço)' : '(Produto)'}}
+                                                            {{$variation->product_name}}
+                                                        </td>
+                                                        <td>{{$variation->deposit->name ?? 'Sem Deposito'}}</td>
+                                                        <td>{{$variation->quantity ?? 0}}</td>
+                                                        <td>{{$unit_dimension[$variation->unit_dimension]}}</td>
+                                                        <td>R$ {{number_format($variation->sale_price, 2, ',', '.')}}</td>
+                                                        <td>
+                                                            <div class="btn-group">
+                                                                <button type="button" class="btn btn-danger btn-apagar" data-tbody=".Products" data-dados="{{json_encode(['id' => $variation->id])}}" data-route="{{route('registration.stock.product')}}"><i class="ri-delete-bin-5-line"></i></button>
+                                                                <a href="{{route('registration.stock.product.edit', $variation->id)}}" class="btn btn-info"><i class="ri-edit-box-line"></i></a>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
                                             @endforeach
-                                        @endforeach --}}
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>

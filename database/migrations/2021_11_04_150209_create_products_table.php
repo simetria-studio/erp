@@ -34,7 +34,7 @@ class CreateProductsTable extends Migration
             $table->string('gtin_ean_tax')->nullable();
             $table->string('production');
             $table->string('condition');
-            $table->integer('deposit_id');
+            $table->integer('deposit_id')->nullable();
             $table->string('stock_min')->nullable();
             $table->string('stock_max')->nullable();
             $table->integer('quantity')->nullable();
@@ -54,6 +54,7 @@ class CreateProductsTable extends Migration
             $table->text('add_information')->nullable();
             $table->text('short_description')->nullable();
             $table->text('description')->nullable();
+            $table->integer('status')->default(1);
             $table->timestamps();
         });
     }

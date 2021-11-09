@@ -375,11 +375,11 @@ $(document).ready(function(){
     });
     $(document).on('change', '#sales_format', function(){
         if($(this).val() == 'S') {
-            $('.caracteristicas').removeClass('d-none');
+            // $('.caracteristicas').removeClass('d-none');
             $('#variacoes-tab-justify').parent().addClass('d-none');
         }
         if($(this).val() == 'CV') {
-            $('.caracteristicas').addClass('d-none');
+            // $('.caracteristicas').addClass('d-none');
             $('#variacoes-tab-justify').parent().removeClass('d-none');
         }
     });

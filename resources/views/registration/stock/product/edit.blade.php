@@ -27,6 +27,8 @@
                         <div class="iq-card-body">
                             <form action="{{route('registration.stock.product')}}" enctype="multipart/form-data" method="post">
                                 @csrf
+                                @method('PUT')
+                                <input type="hidden" name="product_id" value="{{$product->id}}">
                                 <div class="row justify-content-center">
                                     <div class="form-group col-12 col-md-6">
                                         <label for="company_id">Empresa <span class="text-danger">*</span></label>
@@ -185,7 +187,7 @@
                                             </div>
                                             <div class="form-group col-12 col-md-3">
                                                 <label for="quantity">Quantidade</label>
-                                                <input name="quantity" type="text" value="{{$product->quantity}}" class="form-control" placeholder="Quantidade">
+                                                <input name="quantity" type="text" value="0" class="form-control" placeholder="Quantidade">
                                             </div>
                                             <div class="form-group col-12 col-md-3">
                                                 <label for="purchase_price">Preço de Compra Unitário R$</label>

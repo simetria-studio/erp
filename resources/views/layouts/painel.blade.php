@@ -9,22 +9,22 @@
         <title>Sistema - ERP</title>
 
         <!-- Favicon -->
-        <link rel="shortcut icon" href="{{asset('theme/dark-html/images/favicon.ico')}}" />
+        <link rel="shortcut icon" href="{{asset('theme/html/images/favicon.ico')}}" />
 
         <link href="{{asset('plugin/bootstrap-4.6.0/css/bootstrap.min.css')}}" rel="stylesheet">
         <link href="{{asset('plugin/sweetalert2/sweetalert2.min.css')}}" rel="stylesheet">
 
         <!-- Typography CSS -->
-        <link rel="stylesheet" href="{{asset('theme/dark-html/css/typography.css')}}">
+        <link rel="stylesheet" href="{{asset('theme/html/css/typography.css')}}">
         <!-- Style CSS -->
-        <link rel="stylesheet" href="{{asset('theme/dark-html/css/style.css')}}">
+        <link rel="stylesheet" href="{{asset('theme/html/css/style.css')}}">
         <!-- Responsive CSS -->
-        <link rel="stylesheet" href="{{asset('theme/dark-html/css/responsive.css')}}">
+        <link rel="stylesheet" href="{{asset('theme/html/css/responsive.css')}}">
         <!-- Full calendar -->
-        <link href='{{asset('theme/dark-html/fullcalendar/core/main.css')}}' rel='stylesheet' />
-        <link href='{{asset('theme/dark-html/fullcalendar/daygrid/main.css')}}' rel='stylesheet' />
-        <link href='{{asset('theme/dark-html/fullcalendar/timegrid/main.css')}}' rel='stylesheet' />
-        <link href='{{asset('theme/dark-html/fullcalendar/list/main.css')}}' rel='stylesheet' />
+        <link href='{{asset('theme/html/fullcalendar/core/main.css')}}' rel='stylesheet' />
+        <link href='{{asset('theme/html/fullcalendar/daygrid/main.css')}}' rel='stylesheet' />
+        <link href='{{asset('theme/html/fullcalendar/timegrid/main.css')}}' rel='stylesheet' />
+        <link href='{{asset('theme/html/fullcalendar/list/main.css')}}' rel='stylesheet' />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
         <link rel="stylesheet" href="{{asset('plugin/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
@@ -55,7 +55,7 @@
                                     <div class="iq-sidebar-logo">
                                         <div class="top-logo">
                                             <a href="{{route('dashboard')}}" class="logo">
-                                                <img src="{{asset('theme/dark-html/images/logo.gif')}}" class="img-fluid" alt="">
+                                                <img src="{{asset('theme/html/images/logo.gif')}}" class="img-fluid" alt="">
                                                 <span>vito</span>
                                             </a>
                                         </div>
@@ -74,10 +74,10 @@
                                             <ul class="navbar-nav ml-auto navbar-list">
                                                 {{-- <li class="nav-item">
                                                     <a class="search-toggle iq-waves-effect language-title" href="#">
-                                                        <img src="{{asset('theme/dark-html/images/small/flag-07.png')}}" alt="img-flaf" class="img-fluid mr-1" style="height: 16px; width: 16px;" /> Potugues <i class="ri-arrow-down-s-line"></i>
+                                                        <img src="{{asset('theme/html/images/small/flag-07.png')}}" alt="img-flaf" class="img-fluid mr-1" style="height: 16px; width: 16px;" /> Potugues <i class="ri-arrow-down-s-line"></i>
                                                     </a>
                                                     <div class="iq-sub-dropdown">
-                                                        <a class="iq-sub-card" href="#"><img src="{{asset('theme/dark-html/images/small/flag-01.png')}}" alt="img-flaf" class="img-fluid mr-2" />English</a>
+                                                        <a class="iq-sub-card" href="#"><img src="{{asset('theme/html/images/small/flag-01.png')}}" alt="img-flaf" class="img-fluid mr-2" />English</a>
                                                     </div>
                                                 </li> --}}
                                                 <li class="nav-item">
@@ -329,42 +329,42 @@
         <script src="{{asset('js/script.min.js')}}"></script>
 
         <!-- Appear JavaScript -->
-        <script src="{{asset('theme/dark-html/js/jquery.appear.js')}}"></script>
+        <script src="{{asset('theme/html/js/jquery.appear.js')}}"></script>
         <!-- Countdown JavaScript -->
-        <script src="{{asset('theme/dark-html/js/countdown.min.js')}}"></script>
+        <script src="{{asset('theme/html/js/countdown.min.js')}}"></script>
         <!-- Counterup JavaScript -->
-        <script src="{{asset('theme/dark-html/js/waypoints.min.js')}}"></script>
-        <script src="{{asset('theme/dark-html/js/jquery.counterup.min.js')}}"></script>
+        <script src="{{asset('theme/html/js/waypoints.min.js')}}"></script>
+        <script src="{{asset('theme/html/js/jquery.counterup.min.js')}}"></script>
         <!-- Wow JavaScript -->
-        <script src="{{asset('theme/dark-html/js/wow.min.js')}}"></script>
+        <script src="{{asset('theme/html/js/wow.min.js')}}"></script>
         <!-- Apexcharts JavaScript -->
-        <script src="{{asset('theme/dark-html/js/apexcharts.js')}}"></script>
+        <script src="{{asset('theme/html/js/apexcharts.js')}}"></script>
         <!-- Slick JavaScript -->
-        <script src="{{asset('theme/dark-html/js/slick.min.js')}}"></script>
+        <script src="{{asset('theme/html/js/slick.min.js')}}"></script>
         <!-- Select2 JavaScript -->
-        <script src="{{asset('theme/dark-html/js/select2.min.js')}}"></script>
+        <script src="{{asset('theme/html/js/select2.min.js')}}"></script>
         <!-- Owl Carousel JavaScript -->
-        <script src="{{asset('theme/dark-html/js/owl.carousel.min.js')}}"></script>
+        <script src="{{asset('theme/html/js/owl.carousel.min.js')}}"></script>
         <!-- Magnific Popup JavaScript -->
-        <script src="{{asset('theme/dark-html/js/jquery.magnific-popup.min.js')}}"></script>
+        <script src="{{asset('theme/html/js/jquery.magnific-popup.min.js')}}"></script>
         <!-- Smooth Scrollbar JavaScript -->
-        <script src="{{asset('theme/dark-html/js/smooth-scrollbar.js')}}"></script>
+        <script src="{{asset('theme/html/js/smooth-scrollbar.js')}}"></script>
         <!-- lottie JavaScript -->
-        <script src="{{asset('theme/dark-html/js/lottie.js')}}"></script>
+        <script src="{{asset('theme/html/js/lottie.js')}}"></script>
         <!-- am core JavaScript -->
-        <script src="{{asset('theme/dark-html/js/core.js')}}"></script>
+        <script src="{{asset('theme/html/js/core.js')}}"></script>
         <!-- am charts JavaScript -->
-        <script src="{{asset('theme/dark-html/js/charts.js')}}"></script>
+        <script src="{{asset('theme/html/js/charts.js')}}"></script>
         <!-- am animated JavaScript -->
-        <script src="{{asset('theme/dark-html/js/animated.js')}}"></script>
+        <script src="{{asset('theme/html/js/animated.js')}}"></script>
         <!-- am kelly JavaScript -->
-        <script src="{{asset('theme/dark-html/js/kelly.js')}}"></script>
+        <script src="{{asset('theme/html/js/kelly.js')}}"></script>
         <!-- Flatpicker Js -->
         <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
         <!-- Chart Custom JavaScript -->
-        <script src="{{asset('theme/dark-html/js/chart-custom.js')}}"></script>
+        <script src="{{asset('theme/html/js/chart-custom.js')}}"></script>
         <!-- Custom JavaScript -->
-        <script src="{{asset('theme/dark-html/js/custom.js')}}"></script>
+        <script src="{{asset('theme/html/js/custom.js')}}"></script>
 
         <script src="{{asset('plugin/datatables/jquery.dataTables.min.js')}}"></script>
         <script src="{{asset('plugin/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>

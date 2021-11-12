@@ -7,20 +7,22 @@ Route::prefix('settings')->group(function () {
 		Route::put('menu', [App\Http\Controllers\Settings\Admin\AdminController::class, 'update_menu'])->name('setting.admin.menu');
 		Route::delete('menu', [App\Http\Controllers\Settings\Admin\AdminController::class, 'destroy_menu'])->name('setting.admin.menu');
 
-		Route::get('menu/release_access/{user_id?}', [App\Http\Controllers\Settings\Admin\AdminController::class, 'view_release_access'])->name('setting.admin.release_access');
-		Route::post('menu/release_access/{user_id?}', [App\Http\Controllers\Settings\Admin\AdminController::class, 'store_release_access'])->name('setting.admin.release_access');
-		Route::put('menu/release_access/{user_id?}', [App\Http\Controllers\Settings\Admin\AdminController::class, 'update_release_access'])->name('setting.admin.release_access');
-		Route::delete('menu/release_access/{user_id?}', [App\Http\Controllers\Settings\Admin\AdminController::class, 'destroy_release_access'])->name('setting.admin.release_access');
-
-	});
-
-	Route::prefix('companies')->group(function () {
 		Route::get('registration', [App\Http\Controllers\Settings\Company\CompanyController::class, 'view_company'])->name('setting.company.registration');
 		Route::get('registration/create', [App\Http\Controllers\Settings\Company\CompanyController::class, 'create_company'])->name('setting.company.registration.create');
 		Route::post('registration', [App\Http\Controllers\Settings\Company\CompanyController::class, 'store_company'])->name('setting.company.registration');
 		Route::get('registration/edit/{id}', [App\Http\Controllers\Settings\Company\CompanyController::class, 'edit_company'])->name('setting.company.registration.edit');
 		Route::put('registration', [App\Http\Controllers\Settings\Company\CompanyController::class, 'update_company'])->name('setting.company.registration');
 		Route::delete('registration', [App\Http\Controllers\Settings\Company\CompanyController::class, 'destroy_company'])->name('setting.company.registration');
+
+		Route::get('menu/release_access/{user_id?}', [App\Http\Controllers\Settings\Admin\AdminController::class, 'view_release_access'])->name('setting.admin.release_access');
+		Route::post('menu/release_access/{user_id?}', [App\Http\Controllers\Settings\Admin\AdminController::class, 'store_release_access'])->name('setting.admin.release_access');
+		Route::put('menu/release_access/{user_id?}', [App\Http\Controllers\Settings\Admin\AdminController::class, 'update_release_access'])->name('setting.admin.release_access');
+		Route::delete('menu/release_access/{user_id?}', [App\Http\Controllers\Settings\Admin\AdminController::class, 'destroy_release_access'])->name('setting.admin.release_access');
+
+		Route::get('users', [App\Http\Controllers\Settings\Admin\AdminController::class, 'view_users'])->name('setting.admin.users');
+		Route::post('users', [App\Http\Controllers\Settings\Admin\AdminController::class, 'store_users'])->name('setting.admin.users');
+		Route::put('users', [App\Http\Controllers\Settings\Admin\AdminController::class, 'update_users'])->name('setting.admin.users');
+		Route::delete('users', [App\Http\Controllers\Settings\Admin\AdminController::class, 'destroy_users'])->name('setting.admin.users');
 
 	});
 

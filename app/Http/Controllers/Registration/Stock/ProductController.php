@@ -34,7 +34,7 @@ class ProductController extends Controller
         $unit_dimension = $this->unit_dimension;
         $companies = getCompanies()->get();
 
-        return view('registration.stock.product', get_defined_vars());
+        return view('registration.stock.product.product', get_defined_vars());
     }
 
     public function create_product()

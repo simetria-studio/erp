@@ -30,7 +30,7 @@ class CreateCompaniesTable extends Migration
             $table->string('document_number', 50);
             $table->string('state_registration', 50)->nullable(); // registro estadual
             $table->string('municipal_registration', 50)->nullable(); // registro municipal
-            $table->string('phone1', 20); // telefone
+            $table->string('phone1', 20)->nullable(); // telefone
             $table->string('phone2', 20)->nullable(); // celular
             $table->string('email', 100)->nullable();
             $table->string('http', 150)->nullable(); // site

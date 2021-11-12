@@ -28,4 +28,14 @@ class PainelController extends Controller
         // auth()->guard('user')->logout();
         return view('dashboard');
     }
+
+    public function myProfile()
+    {
+        return view('profile.myProfile', get_defined_vars());
+    }
+
+    public function editProfile()
+    {
+        # code...
+    }
 }

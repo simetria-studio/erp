@@ -27,6 +27,7 @@ class CreateUsersTable extends Migration
             $table->string('phone1', 20)->nullable();
             $table->string('phone2', 20)->nullable();
             $table->string('language', 6)->nullable();
+            $table->string('theme')->default('white-html');
             $table->char('active', 1)->default('S');
             $table->rememberToken();
             $table->foreignId('current_team_id')->nullable();

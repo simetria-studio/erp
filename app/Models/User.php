@@ -37,6 +37,7 @@ class User extends Authenticatable
         'phone1',
         'phone2',
         'language',
+        'theme',
         'active',
     ];
 

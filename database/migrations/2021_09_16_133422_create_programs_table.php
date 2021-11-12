@@ -24,7 +24,7 @@ class CreateProgramsTable extends Migration
             $table->string('view_edit')->nullable();
             $table->string('route_name');
             $table->string('controller_name');
-            $table->integer('posiiton');
+            $table->integer('position');
             $table->string('method_get')->nullable();
             $table->string('method_post')->nullable();
             $table->string('method_put')->nullable();

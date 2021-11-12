@@ -18,7 +18,7 @@ class CreateModulesTable extends Migration
             $table->string('main_access_id');
             $table->string('module_name');
             $table->string('module_route');
-            $table->integer('posiiton');
+            $table->integer('position');
             $table->timestamps();
         });
     }

@@ -23,6 +23,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::prefix('profile')->group(function () {
         Route::get('/my-profile', [PainelController::class, 'myProfile'])->name('profile.my');
         Route::get('/edit-profile', [PainelController::class, 'editProfile'])->name('profile.edit');
+        Route::post('/save-profile', [PainelController::class, 'saveProfile'])->name('profile.save');
     });
 
     // Rotas geradas
